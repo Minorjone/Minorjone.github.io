@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>团子的代码作坊</title>
   
-  
+  <subtitle>心有猛兽、细嗅蔷薇</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
