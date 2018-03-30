@@ -5,9 +5,9 @@
   <subtitle>心有猛兽、细嗅蔷薇</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://dangoying.ink/"/>
   <updated>2018-03-29T15:32:26.947Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://dangoying.ink/</id>
   
   <author>
     <name>Dango</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>前端学习路线</title>
-    <link href="http://yoursite.com/2018/03/28/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"/>
-    <id>http://yoursite.com/2018/03/28/前端学习路线/</id>
+    <link href="http://dangoying.ink/2018/03/28/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"/>
+    <id>http://dangoying.ink/2018/03/28/前端学习路线/</id>
     <published>2018-03-28T11:39:59.000Z</published>
     <updated>2018-03-29T15:32:26.947Z</updated>
     
@@ -34,10 +34,10 @@
     
     </summary>
     
-      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://dangoying.ink/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://dangoying.ink/tags/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
