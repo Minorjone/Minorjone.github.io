@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dangoying.ink/"/>
-  <updated>2018-04-08T10:48:02.769Z</updated>
+  <updated>2019-01-17T15:17:27.421Z</updated>
   <id>http://dangoying.ink/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HTTP原理</title>
+    <link href="http://dangoying.ink/HTTP%E5%8E%9F%E7%90%86.html"/>
+    <id>http://dangoying.ink/HTTP原理.html</id>
+    <published>2019-01-17T14:03:18.000Z</published>
+    <updated>2019-01-17T15:17:27.421Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="TCP-IP协议族"><a href="#TCP-IP协议族" class="headerlink" title="TCP/IP协议族"></a>TCP/IP协议族</h2><h3 id="重要思想-分层"><a href="#重要思想-分层" class="headerlink" title="重要思想:分层"></a>重要思想:<code>分层</code></h3><h3 id="分层："><a href="#分层：" class="headerlink" title="分层："></a>分层：</h3><ul><li>应用层：<blockquote><p>HTTP协议：生成针对目标web服务器的HTTP请求报文。<br>FTP协议：文件传输协议。<br>DNS协议： 域名解析协议。</p></blockquote></li></ul><a id="more"></a><ul><li>传输层：<blockquote><p>UDP协议：用户数据报协议。<br>TCP协议：传输控制协议：利用三次握手策略。<br><img src="../assets/http/tcp3handmake.gif" alt="Alt text"></p></blockquote></li></ul><ul><li><p>网络层:</p><blockquote><p>IP协议：把各种数据包传送给对方。<br>ARP协议：解析地址协议，通过IP地址查出对应MAC地址。</p></blockquote></li><li><p>链路层：用于处理网络的硬件部分。</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;TCP-IP协议族&quot;&gt;&lt;a href=&quot;#TCP-IP协议族&quot; class=&quot;headerlink&quot; title=&quot;TCP/IP协议族&quot;&gt;&lt;/a&gt;TCP/IP协议族&lt;/h2&gt;&lt;h3 id=&quot;重要思想-分层&quot;&gt;&lt;a href=&quot;#重要思想-分层&quot; class=&quot;headerlink&quot; title=&quot;重要思想:分层&quot;&gt;&lt;/a&gt;重要思想:&lt;code&gt;分层&lt;/code&gt;&lt;/h3&gt;&lt;h3 id=&quot;分层：&quot;&gt;&lt;a href=&quot;#分层：&quot; class=&quot;headerlink&quot; title=&quot;分层：&quot;&gt;&lt;/a&gt;分层：&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;应用层：&lt;blockquote&gt;
+&lt;p&gt;HTTP协议：生成针对目标web服务器的HTTP请求报文。&lt;br&gt;FTP协议：文件传输协议。&lt;br&gt;DNS协议： 域名解析协议。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="HTTP" scheme="http://dangoying.ink/categories/HTTP/"/>
+    
+    
+      <category term="HTTP" scheme="http://dangoying.ink/tags/HTTP/"/>
+    
+  </entry>
   
   <entry>
     <title>Markdown常用语法</title>

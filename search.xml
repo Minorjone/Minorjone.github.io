@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[HTTP原理]]></title>
+    <url>%2FHTTP%E5%8E%9F%E7%90%86.html</url>
+    <content type="text"><![CDATA[TCP/IP协议族重要思想:分层分层： 应用层： HTTP协议：生成针对目标web服务器的HTTP请求报文。FTP协议：文件传输协议。DNS协议： 域名解析协议。 传输层： UDP协议：用户数据报协议。TCP协议：传输控制协议：利用三次握手策略。 网络层: IP协议：把各种数据包传送给对方。ARP协议：解析地址协议，通过IP地址查出对应MAC地址。 链路层：用于处理网络的硬件部分。]]></content>
+      <categories>
+        <category>HTTP</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Markdown常用语法]]></title>
     <url>%2FMarkdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95.html</url>
     <content type="text"><![CDATA[标题在Markdown中，标题一共分为六级，只需在文字前加上 # 即可，这类标题也可以选择闭合，闭合只是为了美观，由行首的井字符数量决定标题的阶数。代码： 123456# h1## h2### h3#### h4##### h5###### h6 分级标题与标题作用类似，= 和 - 最少可只写一个，兼容性一般。代码： 1234一级标题============二级标题------------ 目录根据标题生成目录，兼容性一般，nexT主题已经开启自动生成目录。代码： 1[TOC] 引用引用可以分为单行引用和多行引用（引用块），同时只要根据层次加上 &gt; 就可以实现嵌套引用，引用的区块内也可以使用其他的 Markdown 语法，包括标题、列表、代码区块等。代码： 单行式1&gt; hello world! 效果： hello world! 多行式12&gt; hello world!brand new world! 或 12&gt; hello world!&gt; brand new world! 效果相同： hello world!brand new world! 嵌套式12&gt; hello world!&gt;&gt; brand new world! 效果： hello world! brand new world! 代码块代码块可分为行内代码块和多行代码块。代码： 行内代码1`&lt;div&gt;&lt;/div&gt;` 效果：&lt;div&gt;&lt;/div&gt; 代码块用三个反引号包裹一串代码，或者使用Tab缩进。注意要空开一行书写。效果： &lt;div&gt; &lt;div&gt;&lt;/div&gt; &lt;div&gt;&lt;/div&gt; &lt;div&gt;&lt;/div&gt; &lt;/div&gt; 自定义语法该方法可以根据不同的语言配置不同的代码着色。(代码在使用的时候去掉前面的反斜杠，这里为了防止被编译而加上) 123456\```javascriptvar num = 0;for (var i = 0; i &lt; 5; i++) &#123; num+=i;&#125;\```console.log(num); 效果： 12345var num = 0;for (var i = 0; i &lt; 5; i++) &#123; num+=i;&#125;console.log(num); 列表Markdown中支持两种列表：无序列表和有序列表。 无序列表无序列表有三种语法,可使用 * 、+ 、 -作为列表标记。代码： 123* Red* Green* Blue 或 123+ Red+ Green+ Blue 或 123- Red- Green- Blue 效果： Red Green Blue 有序列表在列表标记上使用的数字并不会影响输出的 HTML 结果，即可以让 Markdown 文件的列表数字和输出的结果相同，也可以完全不用在意数字的正确性。代码： 1231. Bird2. McHale3. Parish 效果： Bird McHale Parish 分割线可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。代码： 123456789* * *********- - ---------------------------------------- 效果： 链接Markdown 支持两种形式的链接语法： 行内式和参考式两种形式。不管是哪一种，链接文字都是用 [方括号] 来标记。 行内式要建立一个行内式的链接，只要在方块括号后面紧接着圆括号并插入网址链接即可，如果你还想要加上链接的 title 文字，只要在网址后面，用双引号把 title 文字包起来即可。代码： 1[an example](http://example.com/&quot;Title&quot;)&#123;: 效果：an example 参考式该链接必须带 http:// ，否则会被解析成本地路径，代码： 12[an example][id][id]: http://example.com/ 效果：an example 图片Markdown 使用一种和链接很相似的语法来标记图片，和链接的主要区别在于在最开头需要标记 ! 。同样分为行内式和参考式。 行内式方括号中用来放图片无法正常显示时的替代文字，代码： 1![Alt text](../assets/blogImg/avatar.png) 参考式代码： 12![Alt text][01][01]: ../assets/blogImg/avatar.png 效果： 任务列表注意要空开一行书写。代码： 123- [x] 选项一- [ ] 选项二 - [ ] [选项3] 效果： 选项一 选项二 选项三 表格: 代表对齐方式 , : 与 | 之间不要有空格，否则对齐会有些不兼容。代码： 1234| a | b | c ||:-------:|:------------- | ----------:|| 居中 | 左对齐 | 右对齐 ||=========|===============|============| 效果： a b c 居中 左对齐 右对齐 ========= =============== ============ 简约写法： 1234a | b | c :-:|:- |-: 居中 | 左对齐 | 右对齐 ============|=================|============= 字体 描述 效果 代码 斜体 斜体 *斜体* 斜体 斜体 _斜体_ 加粗 加粗 **加粗** 加粗+斜体 加粗+斜体 ***加粗+斜体*** 加粗+斜体 加粗+斜体 **_加粗+斜体_** 删除线 删除线 ~~删除线~~]]></content>
