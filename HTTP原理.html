@@ -105,7 +105,7 @@
 <meta property="og:description" content="TCP/IP协议族重要思想:分层分层： 应用层： HTTP协议：生成针对目标web服务器的HTTP请求报文。FTP协议：文件传输协议。DNS协议： 域名解析协议。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://dangoying.ink/assets/http/tcp3handmake.gif">
-<meta property="og:updated_time" content="2019-01-17T15:17:27.421Z">
+<meta property="og:updated_time" content="2019-01-21T14:35:58.964Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP原理">
 <meta name="twitter:description" content="TCP/IP协议族重要思想:分层分层： 应用层： HTTP协议：生成针对目标web服务器的HTTP请求报文。FTP协议：文件传输协议。DNS协议： 域名解析协议。">
@@ -421,6 +421,18 @@
           
             
             
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <a href="/HTTP原理.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/HTTP原理.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -478,7 +490,176 @@
 <li><p>链路层：用于处理网络的硬件部分。</p>
 </li>
 </ul>
-
+<h2 id="URI-URL"><a href="#URI-URL" class="headerlink" title="URI/URL"></a>URI/URL</h2><ul>
+<li>URI：用字符串标识某一互联网资源。</li>
+<li>URL： 互联网上所处的位置表示资源地点。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://user:pass@wwww.example.com:80/dir/index.html?uid=1#ch1</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">组成</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">https</td>
+<td style="text-align:center">协议方案</td>
+</tr>
+<tr>
+<td style="text-align:center">user:pass</td>
+<td style="text-align:center">登录信息</td>
+</tr>
+<tr>
+<td style="text-align:center">wwww.example.com</td>
+<td style="text-align:center">服务器地址</td>
+</tr>
+<tr>
+<td style="text-align:center">:80</td>
+<td style="text-align:center">端口号</td>
+</tr>
+<tr>
+<td style="text-align:center">dir/index.html</td>
+<td style="text-align:center">文件路径</td>
+</tr>
+<tr>
+<td style="text-align:center">uid=1</td>
+<td style="text-align:center">查询字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">#ch1</td>
+<td style="text-align:center">片段标识符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><h3 id="请求响应："><a href="#请求响应：" class="headerlink" title="请求响应："></a>请求响应：</h3><ul>
+<li><p>请求报文：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST    /from/entry   HTTP/1.1</span><br><span class="line">Host: hacker.jp</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 16</span><br><span class="line">name: ueno&amp;age=37</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>响应报文：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1  200  OK</span><br><span class="line">Date: Tue, 10 Jul 2012 06:50:15 GMT</span><br><span class="line">Content-Length: 362</span><br><span class="line">Content-Type: text/html</span><br><span class="line">&lt;html&gt; ......</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="HTTP可使用方法："><a href="#HTTP可使用方法：" class="headerlink" title="HTTP可使用方法："></a>HTTP可使用方法：</h3><ul>
+<li>GET：获取资源，目的是获取响应的主体内容。</li>
+<li>POST：传输实体主体。</li>
+<li>PUT：传输文件，要求在请求报文中包含文件内容，保存到请求URI指定位置。</li>
+<li>HEAD：获取报文首部，用于确认URI有效性及资源更新的日期时间。</li>
+<li>DELETE：删除文件，删除URI指定资源。</li>
+<li>OPTIONS：询问支持的方法，查询针对请求URI指定资源支持的方法。</li>
+<li>TRACE：追踪路径，用来确认连接过程中发生的一系列操作。</li>
+<li>CONNECT：要求用隧道协议连接代理。</li>
+</ul>
+<h3 id="状态码："><a href="#状态码：" class="headerlink" title="状态码："></a>状态码：</h3><ul>
+<li>状态码类别：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">状态码</th>
+<th style="text-align:center">分类</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1xx</td>
+<td style="text-align:center">Infromational(信息性状态码)</td>
+<td style="text-align:center">接收的请求正在处理</td>
+</tr>
+<tr>
+<td style="text-align:center">2xx</td>
+<td style="text-align:center">Success(成功状态码)</td>
+<td style="text-align:center">请求正常处理完成</td>
+</tr>
+<tr>
+<td style="text-align:center">3xx</td>
+<td style="text-align:center">Redirectiion(重定向状态码)</td>
+<td style="text-align:center">需要进行附加操作以完成请求</td>
+</tr>
+<tr>
+<td style="text-align:center">4xx</td>
+<td style="text-align:center">Client Error(客户端错误状态码)</td>
+<td style="text-align:center">服务器无法处理请求</td>
+</tr>
+<tr>
+<td style="text-align:center">5xx</td>
+<td style="text-align:center">Server Error(服务器错误状态码)</td>
+<td style="text-align:center">服务器处理请求出错</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>常用状态码：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">200 OK</td>
+<td style="text-align:left">从客户端发来的请求在服务端被正常处理了</td>
+</tr>
+<tr>
+<td style="text-align:left">204 No Content</td>
+<td style="text-align:left">服务器接受的请求已成功处理，但返回的响应报文不含实体主体</td>
+</tr>
+<tr>
+<td style="text-align:left">206 Partial Content</td>
+<td style="text-align:left">客户端进行了范围请求</td>
+</tr>
+<tr>
+<td style="text-align:left">301 Moved Permanently</td>
+<td style="text-align:left">永久性重定向</td>
+</tr>
+<tr>
+<td style="text-align:left">302 Found</td>
+<td style="text-align:left">临时性重定向，请求的资源已被分配了新的URI</td>
+</tr>
+<tr>
+<td style="text-align:left">303 See Other</td>
+<td style="text-align:left">与302有着相同功能，但明确要求采用GET获取资源</td>
+</tr>
+<tr>
+<td style="text-align:left">304 Not Modified</td>
+<td style="text-align:left">客户端发送附带条件请求时，服务端允许请求访问，但未满足条件</td>
+</tr>
+<tr>
+<td style="text-align:left">307 Temporary Redirect</td>
+<td style="text-align:left">与302有相同含义，但不会使POST变成GET</td>
+</tr>
+<tr>
+<td style="text-align:left">400 Bad Request</td>
+<td style="text-align:left">请求报文种存在语法错误</td>
+</tr>
+<tr>
+<td style="text-align:left">401 Unauthorized</td>
+<td style="text-align:left">需通过HTTP认证，若已进行过一次请求，则表示认证失败</td>
+</tr>
+<tr>
+<td style="text-align:left">403 Forbidden</td>
+<td style="text-align:left">请求资源的访问被服务器拒绝</td>
+</tr>
+<tr>
+<td style="text-align:left">404 Not Found</td>
+<td style="text-align:left">服务器上无法找到请求的资源</td>
+</tr>
+<tr>
+<td style="text-align:left">500 Internal Server Error</td>
+<td style="text-align:left">服务器端在执行请求时发生了错误</td>
+</tr>
+<tr>
+<td style="text-align:left">503 Service Unavailable</td>
+<td style="text-align:left">服务器暂处于超负载或正在进行停机维护，无法处理请求</td>
+</tr>
+</tbody>
+</table>
+<h3 id="通信数据转发程序："><a href="#通信数据转发程序：" class="headerlink" title="通信数据转发程序："></a>通信数据转发程序：</h3>
       
     </div>
 
@@ -543,6 +724,10 @@
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -709,7 +894,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">1.</span> <span class="nav-text">TCP/IP协议族</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重要思想-分层"><span class="nav-number">1.1.</span> <span class="nav-text">重要思想:分层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分层："><span class="nav-number">1.2.</span> <span class="nav-text">分层：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">1.</span> <span class="nav-text">TCP/IP协议族</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重要思想-分层"><span class="nav-number">1.1.</span> <span class="nav-text">重要思想:分层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分层："><span class="nav-number">1.2.</span> <span class="nav-text">分层：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URI-URL"><span class="nav-number">2.</span> <span class="nav-text">URI/URL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议"><span class="nav-number">3.</span> <span class="nav-text">HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求响应："><span class="nav-number">3.1.</span> <span class="nav-text">请求响应：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP可使用方法："><span class="nav-number">3.2.</span> <span class="nav-text">HTTP可使用方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态码："><span class="nav-number">3.3.</span> <span class="nav-text">状态码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通信数据转发程序："><span class="nav-number">3.4.</span> <span class="nav-text">通信数据转发程序：</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -865,6 +1050,35 @@
 
 
   
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'BHfz5zxfsCYHnHXpWKpO5f38-gzGzoHsz',
+    appKey: 'LQI6U9bUcPXquDU0yEDFAu0U',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
 
 
   
@@ -894,66 +1108,6 @@
 
 
   
-  
-  <script>
-    
-    function addCount(Counter) {
-      var $visitors = $('.leancloud_visitors');
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
-        .done(function({ results }) {
-          if (results.length > 0) {
-            var counter = results[0];
-            
-            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
-            
-              .done(function() {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.time + 1);
-              })
-            
-              .fail(function ({ responseJSON }) {
-                console.log(`Failed to save Visitor num, with error message: ${responseJSON.error}`);
-              })
-          } else {
-            
-              var $element = $(document.getElementById(url));
-              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
-              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
-            
-          }
-        })
-        .fail(function ({ responseJSON }) {
-          console.log(`LeanCloud Counter Error: ${responseJSON.code} ${responseJSON.error}`);
-        });
-    }
-    
-
-    $(function() {
-      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'BHfz5zxfsCYHnHXpWKpO5f38-gzGzoHsz')
-        .done(function({ api_server }) {
-          var Counter = function(method, url, data) {
-            return $.ajax({
-              method: method,
-              url: 'https://' + api_server + '/1.1' + url,
-              headers: {
-                'X-LC-Id': 'BHfz5zxfsCYHnHXpWKpO5f38-gzGzoHsz',
-                'X-LC-Key': 'LQI6U9bUcPXquDU0yEDFAu0U',
-                'Content-Type': 'application/json',
-              },
-              data: data
-            });
-          };
-          
-            addCount(Counter);
-          
-        });
-    });
-  </script>
-
-
 
   
 
