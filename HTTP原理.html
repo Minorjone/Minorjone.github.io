@@ -105,7 +105,7 @@
 <meta property="og:description" content="TCP/IP协议族重要思想:分层分层： 应用层： HTTP协议：生成针对目标web服务器的HTTP请求报文。FTP协议：文件传输协议。DNS协议： 域名解析协议。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://dangoying.ink/assets/http/tcp3handmake.gif">
-<meta property="og:updated_time" content="2019-01-21T14:35:58.964Z">
+<meta property="og:updated_time" content="2019-01-22T15:10:25.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP原理">
 <meta name="twitter:description" content="TCP/IP协议族重要思想:分层分层： 应用层： HTTP协议：生成针对目标web服务器的HTTP请求报文。FTP协议：文件传输协议。DNS协议： 域名解析协议。">
@@ -659,7 +659,34 @@
 </tr>
 </tbody>
 </table>
-<h3 id="通信数据转发程序："><a href="#通信数据转发程序：" class="headerlink" title="通信数据转发程序："></a>通信数据转发程序：</h3>
+<h3 id="通信数据转发程序："><a href="#通信数据转发程序：" class="headerlink" title="通信数据转发程序："></a>通信数据转发程序：</h3><h4 id="代理："><a href="#代理：" class="headerlink" title="代理："></a>代理：</h4><ul>
+<li>作用：接收由客户端发送的请求并转发给服务器，接收服务器相应转发给客户端，转发时，需要附加Via首部字段以标记出经过的主机信息。</li>
+<li>使用理由：<blockquote>
+<p>利用缓存技术减少网络带宽的流量<br>组织内部针对特定网站的访问控制<br>以获取访问日志为主要目的</p>
+</blockquote>
+</li>
+<li>分类：<blockquote>
+<p>缓存代理：会预先将资源的副本保存在代理服务器<br>透明代理：不对报文做任何加工的代理类型为透明代理</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="网关："><a href="#网关：" class="headerlink" title="网关："></a>网关：</h4><ul>
+<li>作用：工作机制和代理十分相似，而网关能使通信线路上的服务器提供非HTTP协议。</li>
+</ul>
+<h4 id="隧道："><a href="#隧道：" class="headerlink" title="隧道："></a>隧道：</h4><ul>
+<li>作用：建立一条与其他服务器通信的线路，确保客户端能与服务器进行安全的通信。</li>
+</ul>
+<h3 id="HTTP首部字段："><a href="#HTTP首部字段：" class="headerlink" title="HTTP首部字段："></a>HTTP首部字段：</h3><h4 id="类型："><a href="#类型：" class="headerlink" title="类型："></a>类型：</h4><ul>
+<li>通用首部字段：请求报文和响应报文两方都会使用的首部</li>
+<li>请求首部字段：请求报文使用的首部</li>
+<li>响应首部字段：响应报文使用的首部</li>
+<li>实体首部字段：补充了资源内容更新时间等实体有关的信息</li>
+</ul>
+<h4 id="End-to-end首部和Hop-to-hop首部："><a href="#End-to-end首部和Hop-to-hop首部：" class="headerlink" title="End-to-end首部和Hop-to-hop首部："></a>End-to-end首部和Hop-to-hop首部：</h4><ul>
+<li>端到端首部(End-to-end)：分在此类的首部会转发给请求/想一个的最终接受目标。</li>
+<li>逐跳首部(Hop-to-hop)：分在此类的首部支队单词转发有效，会因通过缓存代理不转发。</li>
+</ul>
+
       
     </div>
 
@@ -894,7 +921,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">1.</span> <span class="nav-text">TCP/IP协议族</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重要思想-分层"><span class="nav-number">1.1.</span> <span class="nav-text">重要思想:分层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分层："><span class="nav-number">1.2.</span> <span class="nav-text">分层：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URI-URL"><span class="nav-number">2.</span> <span class="nav-text">URI/URL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议"><span class="nav-number">3.</span> <span class="nav-text">HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求响应："><span class="nav-number">3.1.</span> <span class="nav-text">请求响应：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP可使用方法："><span class="nav-number">3.2.</span> <span class="nav-text">HTTP可使用方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态码："><span class="nav-number">3.3.</span> <span class="nav-text">状态码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通信数据转发程序："><span class="nav-number">3.4.</span> <span class="nav-text">通信数据转发程序：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">1.</span> <span class="nav-text">TCP/IP协议族</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重要思想-分层"><span class="nav-number">1.1.</span> <span class="nav-text">重要思想:分层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分层："><span class="nav-number">1.2.</span> <span class="nav-text">分层：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URI-URL"><span class="nav-number">2.</span> <span class="nav-text">URI/URL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议"><span class="nav-number">3.</span> <span class="nav-text">HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求响应："><span class="nav-number">3.1.</span> <span class="nav-text">请求响应：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP可使用方法："><span class="nav-number">3.2.</span> <span class="nav-text">HTTP可使用方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态码："><span class="nav-number">3.3.</span> <span class="nav-text">状态码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通信数据转发程序："><span class="nav-number">3.4.</span> <span class="nav-text">通信数据转发程序：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代理："><span class="nav-number">3.4.1.</span> <span class="nav-text">代理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网关："><span class="nav-number">3.4.2.</span> <span class="nav-text">网关：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隧道："><span class="nav-number">3.4.3.</span> <span class="nav-text">隧道：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP首部字段："><span class="nav-number">3.5.</span> <span class="nav-text">HTTP首部字段：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类型："><span class="nav-number">3.5.1.</span> <span class="nav-text">类型：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#End-to-end首部和Hop-to-hop首部："><span class="nav-number">3.5.2.</span> <span class="nav-text">End-to-end首部和Hop-to-hop首部：</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
