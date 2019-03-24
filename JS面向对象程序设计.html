@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://dangoying.ink/assets/jsoop/20190324153411.png">
 <meta property="og:image" content="http://dangoying.ink/assets/jsoop/20190324225152.png">
-<meta property="og:updated_time" content="2019-03-24T15:13:04.378Z">
+<meta property="og:updated_time" content="2019-03-24T15:27:38.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS面向对象程序设计">
 <meta name="twitter:description" content="属性类型数据属性   属性名 解释     [[Configurable]] 表示能否通过delete删除属性从而重新定义属性，默认为true   [[Enumerable]] 表示能否通过for-in循环返回属性，默认为true   [[Writable]] 表示能否修改属性的值，默认为true   [[Value]] 包含这个属性的数值，默认为undefined    12345678var">
@@ -496,6 +496,7 @@
 </tbody>
 </table>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var person = &#123;&#125;;</span><br><span class="line">Object.defineProperty(person,&quot;name&quot;,&#123;</span><br><span class="line">    writable: false,</span><br><span class="line">    value: &quot;Nicholas&quot;</span><br><span class="line">&#125;);</span><br><span class="line">alert(person.name);  // &quot;Nicholas&quot;</span><br><span class="line">person.name = &quot;Greg&quot;;</span><br><span class="line">alert(person.name);  // &quot;Nicholas&quot;,通过修改属性使之不能被修改</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h3><table>
 <thead>
 <tr>
