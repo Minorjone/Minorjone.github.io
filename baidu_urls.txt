@@ -1,1 +1,1 @@
-http://dangoying.ink/HTTP原理.html
+http://dangoying.ink/JS面向对象程序设计.html
