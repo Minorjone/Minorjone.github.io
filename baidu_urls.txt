@@ -1,1 +1,1 @@
-http://dangoying.ink/JS面向对象程序设计.html
+http://dangoying.ink/JS精度丢失问题.html

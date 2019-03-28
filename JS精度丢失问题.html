@@ -96,13 +96,18 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="团子的代码作坊">
-<meta property="og:url" content="http://dangoying.ink/archives/2019/01/index.html">
+  <meta name="description" content="最近开发的项目新需求中，需要一个金额的输入框，其输入上限为16位整数带两位小数的浮点类型，由于前台显示的金额是字符串型，在传递给后台时使用了parseFloat()方法，却发现在测试校验最大临界值时，发生了四舍五入，最终导致校验失败，由此引发了我对JS浮点数表示和运算了深入理解。">
+<meta name="keywords" content="前端,JS,精度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS精度丢失问题">
+<meta property="og:url" content="http://dangoying.ink/JS精度丢失问题.html">
 <meta property="og:site_name" content="团子的代码作坊">
+<meta property="og:description" content="最近开发的项目新需求中，需要一个金额的输入框，其输入上限为16位整数带两位小数的浮点类型，由于前台显示的金额是字符串型，在传递给后台时使用了parseFloat()方法，却发现在测试校验最大临界值时，发生了四舍五入，最终导致校验失败，由此引发了我对JS浮点数表示和运算了深入理解。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-28T15:16:52.552Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="团子的代码作坊">
+<meta name="twitter:title" content="JS精度丢失问题">
+<meta name="twitter:description" content="最近开发的项目新需求中，需要一个金额的输入框，其输入上限为16位整数带两位小数的浮点类型，由于前台显示的金额是字符串型，在传递给后台时使用了parseFloat()方法，却发现在测试校验最大临界值时，发生了四舍五入，最终导致校验失败，由此引发了我对JS浮点数表示和运算了深入理解。">
 
 
 
@@ -111,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="http://dangoying.ink/archives/2019/01/">
+  <link rel="canonical" href="http://dangoying.ink/JS精度丢失问题.html">
 
 
 
@@ -121,7 +126,7 @@
   };
 </script>
 
-  <title>归档 | 团子的代码作坊</title>
+  <title>JS精度丢失问题 | 团子的代码作坊</title>
   
 
 
@@ -169,7 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -245,7 +250,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -322,98 +327,220 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 6 篇日志。 继续努力。
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dangoying.ink/JS精度丢失问题.html">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dango">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="团子的代码作坊">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/HTTP原理.html" itemprop="url">
-            
-              <span itemprop="name">HTTP原理</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">JS精度丢失问题
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-17T22:03:18+08:00" content="2019-01-17">
-          01-17
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-28 22:56:27" itemprop="dateCreated datePublished" datetime="2019-03-28T22:56:27+08:00">2019-03-28</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <a href="/JS精度丢失问题.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/JS精度丢失问题.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/JS精度丢失问题.html" class="leancloud_visitors" data-flag-title="JS精度丢失问题">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>最近开发的项目新需求中，需要一个金额的输入框，其输入上限为16位整数带两位小数的浮点类型，由于前台显示的金额是字符串型，在传递给后台时使用了<code>parseFloat()</code>方法，却发现在测试校验最大临界值时，发生了四舍五入，最终导致校验失败，由此引发了我对JS浮点数表示和运算了深入理解。</p>
+<a id="more"></a>
+<h3 id="JS浮点数精度丢失的原因"><a href="#JS浮点数精度丢失的原因" class="headerlink" title="JS浮点数精度丢失的原因"></a>JS浮点数精度丢失的原因</h3>
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/JS面向对象程序设计.html" rel="next" title="JS面向对象程序设计">
+                <i class="fa fa-chevron-left"></i> JS面向对象程序设计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -434,8 +561,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -556,6 +692,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JS浮点数精度丢失的原因"><span class="nav-number">1.</span> <span class="nav-text">JS浮点数精度丢失的原因</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -693,6 +846,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -732,6 +889,8 @@
 
 
 
+
+  
 
 
   
