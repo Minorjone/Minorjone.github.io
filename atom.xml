@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dangoying.ink/"/>
-  <updated>2019-03-28T15:16:52.552Z</updated>
+  <updated>2019-03-30T15:21:16.040Z</updated>
   <id>http://dangoying.ink/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://dangoying.ink/JS%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98.html"/>
     <id>http://dangoying.ink/JS精度丢失问题.html</id>
     <published>2019-03-28T14:56:27.000Z</published>
-    <updated>2019-03-28T15:16:52.552Z</updated>
+    <updated>2019-03-30T15:21:16.040Z</updated>
     
-    <content type="html"><![CDATA[<p>最近开发的项目新需求中，需要一个金额的输入框，其输入上限为16位整数带两位小数的浮点类型，由于前台显示的金额是字符串型，在传递给后台时使用了<code>parseFloat()</code>方法，却发现在测试校验最大临界值时，发生了四舍五入，最终导致校验失败，由此引发了我对JS浮点数表示和运算了深入理解。</p><a id="more"></a><h3 id="JS浮点数精度丢失的原因"><a href="#JS浮点数精度丢失的原因" class="headerlink" title="JS浮点数精度丢失的原因"></a>JS浮点数精度丢失的原因</h3>]]></content>
+    <content type="html"><![CDATA[<p>最近开发的项目新需求中，需要一个金额的输入框，其输入上限为16位整数带两位小数的浮点类型，由于前台显示的金额是字符串型，在传递给后台时使用了<code>parseFloat()</code>方法，却发现在测试校验最大临界值时，发生了四舍五入，最终导致校验失败，由此引发了我对JS浮点数表示和运算了深入理解。</p><a id="more"></a><h2 id="JS浮点数精度丢失的原因"><a href="#JS浮点数精度丢失的原因" class="headerlink" title="JS浮点数精度丢失的原因"></a>JS浮点数精度丢失的原因</h2><p>由于计算机的二进制实现和位数限制，有些数无法有限表示。就像一些无理数不能有限表示，如 圆周率 3.1415926…，1.3333… 等。JS 遵循 IEEE 754 规范，采用双精度存储（double precision），占用 64 bit。</p><p><img src="../assets/20190330/1.jpg" alt="Alt text"></p><ul><li>1位用来表示符号位</li><li>11位用来表示指数</li><li>52位表示尾数</li></ul><p>因为在计算机最底层，数值的运算和操作都是采用二进制实现的，所以计算机没有办法精确表示浮点数，而只能用二进制近似相等的去表示浮点数的小数部分。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0.1 &gt;&gt; 0.0001 1001 1001 1001…（1001无限循环）</span><br><span class="line">0.2 &gt;&gt; 0.0011 0011 0011 0011…（0011无限循环）</span><br></pre></td></tr></table></figure><p>当进行计算或其他操作时时，四舍五入（逢1进，逢0舍）将会导致最终的运算结果存在偏差。</p><p>而大整数也存在同样的问题，因为表示尾数的尾数只有52位，因此 JS 中能精准表示的最大整数是 Math.pow(2, 53)，即十进制9007199254740992。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">9007199254740992     &gt;&gt; 10000000000000...000 // 共计 53 个 0</span><br><span class="line">9007199254740992 + 1 &gt;&gt; 10000000000000...001 // 中间 52 个 0</span><br><span class="line">9007199254740992 + 2 &gt;&gt; 10000000000000...010 // 中间 51 个 0</span><br><span class="line">9007199254740992 + 1 // 丢失        //9007199254740992 </span><br><span class="line">9007199254740992 + 2 // 未丢失      //9007199254740994   </span><br><span class="line">9007199254740992 + 3 // 丢失        //9007199254740992 </span><br><span class="line">9007199254740992 + 4 // 未丢失      //9007199254740996</span><br></pre></td></tr></table></figure><p>由此可知，十进制中的有穷数值，在计算机底层，可能是0、1循环的无限数值。</p><p>在Java、C、C++中，均有对浮点数值的特殊处理，如Java的BigDecimal类型就是用来解决这一浮点数问题。</p><h2 id="常见的出错场合"><a href="#常见的出错场合" class="headerlink" title="常见的出错场合"></a>常见的出错场合</h2><h3 id="浮点数计算："><a href="#浮点数计算：" class="headerlink" title="浮点数计算："></a>浮点数计算：</h3><h3 id="浮点数比较："><a href="#浮点数比较：" class="headerlink" title="浮点数比较："></a>浮点数比较：</h3><h3 id="大整数计算："><a href="#大整数计算：" class="headerlink" title="大整数计算："></a>大整数计算：</h3><h3 id="大整数比较："><a href="#大整数比较：" class="headerlink" title="大整数比较："></a>大整数比较：</h3>]]></content>
     
     <summary type="html">
     
