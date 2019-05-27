@@ -1,1 +1,1 @@
-http://dangoying.ink/JS精度丢失问题.html
+http://dangoying.ink/JS函数表达式（闭包）.html
