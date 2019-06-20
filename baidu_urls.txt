@@ -1,1 +1,1 @@
-http://dangoying.ink/函数柯里化.html
+http://dangoying.ink/JS引用类型.html

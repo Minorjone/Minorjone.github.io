@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'RAEGHV9C55',
+      apiKey: '786548c432d905298e9946dd4dd863f4',
+      indexName: 'hexo',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="定义引用类型的值（对象）是引用类型的一个实例。引用类型是一种数据结构，用于将数据和功能组织在一起。 Object类型创建方式：使用new操作符后跟Object构造函数。123var person = new Object();   //与 var person = &amp;#123;&amp;#125; 等同person.name = &amp;quot;Nicholas&amp;quot;;person.age = 29;">
+<meta name="keywords" content="前端,JS,引用类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS引用类型">
+<meta property="og:url" content="http://dangoying.ink/JS引用类型.html">
+<meta property="og:site_name" content="团子的代码作坊">
+<meta property="og:description" content="定义引用类型的值（对象）是引用类型的一个实例。引用类型是一种数据结构，用于将数据和功能组织在一起。 Object类型创建方式：使用new操作符后跟Object构造函数。123var person = new Object();   //与 var person = &amp;#123;&amp;#125; 等同person.name = &amp;quot;Nicholas&amp;quot;;person.age = 29;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-20T15:12:26.414Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS引用类型">
+<meta name="twitter:description" content="定义引用类型的值（对象）是引用类型的一个实例。引用类型是一种数据结构，用于将数据和功能组织在一起。 Object类型创建方式：使用new操作符后跟Object构造函数。123var person = new Object();   //与 var person = &amp;#123;&amp;#125; 等同person.name = &amp;quot;Nicholas&amp;quot;;person.age = 29;">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="团子的代码作坊" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://dangoying.ink/JS引用类型.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JS引用类型 | 团子的代码作坊</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">团子的代码作坊</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">心有猛兽、细嗅蔷薇</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dangoying.ink/JS引用类型.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dango">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="团子的代码作坊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS引用类型
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-17 21:35:13" itemprop="dateCreated datePublished" datetime="2019-06-17T21:35:13+08:00">2019-06-17</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <a href="/JS引用类型.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/JS引用类型.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/JS引用类型.html" class="leancloud_visitors" data-flag-title="JS引用类型">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>引用类型的值（对象）是引用类型的一个实例。<br>引用类型是一种数据结构，用于将数据和功能组织在一起。</p>
+<h2 id="Object类型"><a href="#Object类型" class="headerlink" title="Object类型"></a>Object类型</h2><h3 id="创建方式："><a href="#创建方式：" class="headerlink" title="创建方式："></a>创建方式：</h3><p>使用new操作符后跟Object构造函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var person = new Object();   //与 var person = &#123;&#125; 等同</span><br><span class="line">person.name = &quot;Nicholas&quot;;</span><br><span class="line">person.age = 29;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>使用对象字面量表示法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var person = &#123;</span><br><span class="line">    name : &quot;Nicholas&quot;,</span><br><span class="line">    age : 29  //在最后一个属性后面添加逗号，会在IE7及更早版本的Opera中导致错误</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="访问属性："><a href="#访问属性：" class="headerlink" title="访问属性："></a>访问属性：</h3><p>使用点表示法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(person.name);</span><br></pre></td></tr></table></figure></p>
+<p>使用方括号语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(person[&quot;name&quot;]);</span><br></pre></td></tr></table></figure></p>
+<p>使用方括号访问的优点：</p>
+<ul>
+<li>可以通过变量来访问</li>
+<li>如果属性名中包含会导致错误语法的字符，或使用关键字，保留字，可以用方括号</li>
+</ul>
+<p>除非必须使用变量来访问属性，否则我们建议使用点表示法。</p>
+<h2 id="Array类型"><a href="#Array类型" class="headerlink" title="Array类型"></a>Array类型</h2><h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><p>ECMAScript数组的每一项可以保存在任何类型的数据<br>ECMAScript数组的大小是可以动态调整的</p>
+<h3 id="创建方式：-1"><a href="#创建方式：-1" class="headerlink" title="创建方式："></a>创建方式：</h3><p>使用Array构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var colors = new Array(3);</span><br><span class="line">var colors = new Array(&quot;Greg&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>使用数组字面量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var colors = [&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;];</span><br></pre></td></tr></table></figure></p>
+<h3 id="读取方式和设置数组："><a href="#读取方式和设置数组：" class="headerlink" title="读取方式和设置数组："></a>读取方式和设置数组：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var colors = [&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;];</span><br><span class="line">alert(colors[[0]]);</span><br><span class="line">colors[2] = &quot;black&quot;;</span><br></pre></td></tr></table></figure>
+<h3 id="检测数组："><a href="#检测数组：" class="headerlink" title="检测数组："></a>检测数组：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(Array.isArray(value))&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="转换方法："><a href="#转换方法：" class="headerlink" title="转换方法："></a>转换方法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var colors = [&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;];</span><br><span class="line">alert(colors.toString());   //red,blue,green</span><br><span class="line">alert(colors.valueOf());    //red,blue,green</span><br><span class="line">alert(colors);              //red,blue,green</span><br><span class="line">alert(colors.join(&quot;,&quot;));    //red,blue,green</span><br><span class="line">alert(colors.join(&quot;||&quot;));   //red||blue||green</span><br></pre></td></tr></table></figure>
+<h3 id="栈方法："><a href="#栈方法：" class="headerlink" title="栈方法："></a>栈方法：</h3><p>栈是一种LIFO(Last-In-First-Out)的数据结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var colors = new Array();</span><br><span class="line">var count = colors.push(&quot;red&quot;,&quot;green&quot;);</span><br><span class="line">alert(count);   //2</span><br><span class="line">count = colors.push(&quot;black&quot;);</span><br><span class="line">alert(count);   //3</span><br><span class="line">var item = colors.pop();</span><br><span class="line">alert(item);    //&quot;black&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="队列方法："><a href="#队列方法：" class="headerlink" title="队列方法："></a>队列方法：</h3><p>队列是一种FIFO(First-in-First-Out)的数据结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var colors = new Array();</span><br><span class="line">var count = colors.push(&quot;red&quot;,&quot;green&quot;);</span><br><span class="line">alert(count);     //2</span><br><span class="line">count = colors.push(&quot;black&quot;);</span><br><span class="line">alert(count);     //3</span><br><span class="line">var item = colors.shift();</span><br><span class="line">alert(item);      //red</span><br><span class="line">var colors = new Array();</span><br><span class="line">var count = colors.unshift(&quot;red&quot;,&quot;green&quot;);</span><br><span class="line">count = colors.unshift(&quot;black&quot;);</span><br><span class="line">alert(colors);    //black,red,green</span><br><span class="line">var item = colors.pop();</span><br><span class="line">alert(item);      //green</span><br></pre></td></tr></table></figure></p>
+<h3 id="重排序方法："><a href="#重排序方法：" class="headerlink" title="重排序方法："></a>重排序方法：</h3><h4 id="function-reverse"><a href="#function-reverse" class="headerlink" title="function reverse:"></a>function reverse:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var values= [1,2,3,4,5];</span><br><span class="line">values.reverse();</span><br><span class="line">alert(values);   //5,4,3,2,1</span><br></pre></td></tr></table></figure>
+<h4 id="function-sort"><a href="#function-sort" class="headerlink" title="function sort:"></a>function sort:</h4><p>在执行sort方法前，会先调用toString()转型，然后比较得到字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var values = [0,1,5,10,15];</span><br><span class="line">values.sort();</span><br><span class="line">alert(values);   //0,1,10,15,5</span><br></pre></td></tr></table></figure></p>
+<p>添加比较函数，如果第一个参数应该位于第二个参数前，返回负数，否则返回正数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function compare(value1,value2)&#123;</span><br><span class="line">    if(value1 &lt; value2)&#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    else if(value1 &gt; value2)&#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">values.sort(compare);  //0,1,5,10,15</span><br></pre></td></tr></table></figure></p>
+<p>数值类型可以用更简单的比较函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function compare(value1,value2)&#123;   //升序</span><br><span class="line">    return value1 - value2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="操作方法："><a href="#操作方法：" class="headerlink" title="操作方法："></a>操作方法：</h3><h4 id="function-concat"><a href="#function-concat" class="headerlink" title="function concat:"></a>function concat:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var colors = [&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;];</span><br><span class="line">var colors = colors.concat(&quot;yellow&quot;,[&quot;black&quot;,&quot;brown&quot;]);</span><br><span class="line">alert(colors);    //red,green,blue</span><br><span class="line">alert(colors2);   //red,green,blue,yellow,black,brown</span><br></pre></td></tr></table></figure>
+<p>这个方法会先创建当前数组的一个副本，然后将接收的参数添加到这个副本的末尾，最后返回新构建的数组</p>
+<h4 id="function-slice"><a href="#function-slice" class="headerlink" title="function slice:"></a>function slice:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var colors = [&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;,&quot;yellow&quot;,&quot;purple&quot;];</span><br><span class="line">var colors2 = colors.slice(1);</span><br><span class="line">var colors3 = colors.slice(1,4);</span><br><span class="line">alert(colors2);   //green,blue,yellow,purple</span><br><span class="line">alert(colors3);   //green,blue,yellow</span><br></pre></td></tr></table></figure>
+<p>能够基于当前数组中的一或多个项创建一个新数组，slice方法不会影响原始数组</p>
+<h4 id="function-splice"><a href="#function-splice" class="headerlink" title="function splice:"></a>function splice:</h4><p>删除、插入、替换，用于向数组中部插入项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var colors = [&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;];</span><br><span class="line">var removed = colors.splice(0,1);   //删除一项</span><br><span class="line">alert(colors);    //green,blue</span><br><span class="line">alert(removed);   //red</span><br><span class="line">removed = colors.splice(1,0,&quot;yellow&quot;,&quot;orange&quot;);   //插入两项</span><br><span class="line">alert(colors);    //green,yellow,orange,blue</span><br><span class="line">alert(removed);   //空数组</span><br><span class="line">removed = colors.splice(1,1,&quot;red&quot;,&quot;purple&quot;);   //替换一项，插入一项</span><br><span class="line">alert(colors);   //green,red,purple,orange,blue</span><br><span class="line">alert(removed);  //yellow</span><br></pre></td></tr></table></figure></p>
+<h3 id="位置方法："><a href="#位置方法：" class="headerlink" title="位置方法："></a>位置方法：</h3><h4 id="function-indexOf"><a href="#function-indexOf" class="headerlink" title="function indexOf:"></a>function indexOf:</h4><p>从数组的开头开始向后查找，比较时会使用全等操作符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var numbers = [1,2,3,4,5,4,3,2,1];</span><br><span class="line">alert(numbers.indexoOf(4));   //3</span><br><span class="line">alert(numbers.indexOf(4,4))   //第一参数表示要查找的项，第二参数表示查找起始位置</span><br><span class="line">var person = &#123;name:&quot;Nicholas&quot;&#125;;</span><br><span class="line">var people = [&#123;name:&quot;Nicholas&quot;&#125;];</span><br><span class="line">var morePeople = [person];</span><br><span class="line">alert(people.indexOf(person));   //-1</span><br><span class="line">alert(morePeople.indexOf(person));  //0</span><br></pre></td></tr></table></figure></p>
+<h4 id="function-lastIndexOf"><a href="#function-lastIndexOf" class="headerlink" title="function lastIndexOf:"></a>function lastIndexOf:</h4><p>从数组的末尾开始向前查找<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var numbers = [1,2,3,4,5,4,3,2,1];</span><br><span class="line">alert(numbers.lastIndexOf(4));   //5</span><br><span class="line">alert(numbers.lastIndexOf(4,4));   //3</span><br></pre></td></tr></table></figure></p>
+<h3 id="迭代方法："><a href="#迭代方法：" class="headerlink" title="迭代方法："></a>迭代方法：</h3><h4 id="function-every"><a href="#function-every" class="headerlink" title="function every:"></a>function every:</h4><p>对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var numbers = [1,2,3,4,5,4,3,2,1];</span><br><span class="line">var everyResult = numbers.every(function(item,index,array)&#123;</span><br><span class="line">    return (item&gt;2);</span><br><span class="line">&#125;);</span><br><span class="line">alert(everyResult);  //false</span><br></pre></td></tr></table></figure></p>
+<h4 id="function-filter"><a href="#function-filter" class="headerlink" title="function filter:"></a>function filter:</h4><p>对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var numbers = [1,2,3,4,5,4,3,2,1];</span><br><span class="line">var filterResult = numbers.filter(function(item,index,array)&#123;</span><br><span class="line">    return (item&gt;2);</span><br><span class="line">&#125;);</span><br><span class="line">alert(filterResult);  //[3,4,5,4,3]</span><br></pre></td></tr></table></figure></p>
+<h4 id="function-forEach"><a href="#function-forEach" class="headerlink" title="function forEach:"></a>function forEach:</h4><p>对数组中的每一项运行给定函数，这个方法没有返回值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var numbers = [1,2,3,4,5,4,3,2,1];</span><br><span class="line">var filterResult = numbers.filter(function(item,index,array)&#123;</span><br><span class="line">    //...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="function-map"><a href="#function-map" class="headerlink" title="function map:"></a>function map:</h4><p>对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var numbers = [1,2,3,4,5,4,3,2,1];</span><br><span class="line">var mapResult = numbers.map(function(item,index,array)&#123;</span><br><span class="line">    return item*2;</span><br><span class="line">&#125;);</span><br><span class="line">alert(mapResult);  //[2,4,6,8,10,8,6,4,2]</span><br></pre></td></tr></table></figure></p>
+<h4 id="function-some"><a href="#function-some" class="headerlink" title="function some:"></a>function some:</h4><p>对数组中的每一项运行给定函数，如果该函数对任一项返回true，则返回true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var numbers = [1,2,3,4,5,4,3,2,1];</span><br><span class="line">var someResult = numbers.some(function(item,index,array)&#123;</span><br><span class="line">    return (item&gt;2);</span><br><span class="line">&#125;);</span><br><span class="line">alert(someResult);  //true</span><br></pre></td></tr></table></figure></p>
+<h3 id="缩小方法（归并方法）："><a href="#缩小方法（归并方法）：" class="headerlink" title="缩小方法（归并方法）："></a>缩小方法（归并方法）：</h3>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/函数柯里化.html" rel="next" title="函数柯里化">
+                <i class="fa fa-chevron-left"></i> 函数柯里化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/assets/blogImg/avatar.png" alt="Dango">
+            
+              <p class="site-author-name" itemprop="name">Dango</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/minorjone" title="GitHub &rarr; https://github.com/minorjone" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:879275999@qq.com" title="E-Mail &rarr; mailto:879275999@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object类型"><span class="nav-number">2.</span> <span class="nav-text">Object类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建方式："><span class="nav-number">2.1.</span> <span class="nav-text">创建方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问属性："><span class="nav-number">2.2.</span> <span class="nav-text">访问属性：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array类型"><span class="nav-number">3.</span> <span class="nav-text">Array类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点："><span class="nav-number">3.1.</span> <span class="nav-text">特点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建方式：-1"><span class="nav-number">3.2.</span> <span class="nav-text">创建方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取方式和设置数组："><span class="nav-number">3.3.</span> <span class="nav-text">读取方式和设置数组：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测数组："><span class="nav-number">3.4.</span> <span class="nav-text">检测数组：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换方法："><span class="nav-number">3.5.</span> <span class="nav-text">转换方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈方法："><span class="nav-number">3.6.</span> <span class="nav-text">栈方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列方法："><span class="nav-number">3.7.</span> <span class="nav-text">队列方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重排序方法："><span class="nav-number">3.8.</span> <span class="nav-text">重排序方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#function-reverse"><span class="nav-number">3.8.1.</span> <span class="nav-text">function reverse:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#function-sort"><span class="nav-number">3.8.2.</span> <span class="nav-text">function sort:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作方法："><span class="nav-number">3.9.</span> <span class="nav-text">操作方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#function-concat"><span class="nav-number">3.9.1.</span> <span class="nav-text">function concat:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#function-slice"><span class="nav-number">3.9.2.</span> <span class="nav-text">function slice:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#function-splice"><span class="nav-number">3.9.3.</span> <span class="nav-text">function splice:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位置方法："><span class="nav-number">3.10.</span> <span class="nav-text">位置方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#function-indexOf"><span class="nav-number">3.10.1.</span> <span class="nav-text">function indexOf:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#function-lastIndexOf"><span class="nav-number">3.10.2.</span> <span class="nav-text">function lastIndexOf:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代方法："><span class="nav-number">3.11.</span> <span class="nav-text">迭代方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#function-every"><span class="nav-number">3.11.1.</span> <span class="nav-text">function every:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#function-filter"><span class="nav-number">3.11.2.</span> <span class="nav-text">function filter:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#function-forEach"><span class="nav-number">3.11.3.</span> <span class="nav-text">function forEach:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#function-map"><span class="nav-number">3.11.4.</span> <span class="nav-text">function map:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#function-some"><span class="nav-number">3.11.5.</span> <span class="nav-text">function some:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缩小方法（归并方法）："><span class="nav-number">3.12.</span> <span class="nav-text">缩小方法（归并方法）：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-anchor"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dango</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+<div class="copyright">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'BHfz5zxfsCYHnHXpWKpO5f38-gzGzoHsz',
+    appKey: 'LQI6U9bUcPXquDU0yEDFAu0U',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.7.0"></script>
+
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
