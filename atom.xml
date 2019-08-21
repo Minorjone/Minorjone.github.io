@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dangoying.ink/"/>
-  <updated>2019-06-26T15:39:49.599Z</updated>
+  <updated>2019-08-21T15:06:37.303Z</updated>
   <id>http://dangoying.ink/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HTML5知识点</title>
+    <link href="http://dangoying.ink/HTML5%E7%9F%A5%E8%AF%86%E7%82%B9.html"/>
+    <id>http://dangoying.ink/HTML5知识点.html</id>
+    <published>2019-08-21T14:41:19.000Z</published>
+    <updated>2019-08-21T15:06:37.303Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>最近阅读了HTML5权威指南，给HTML5中新增的知识点做了张思维导图，方便二次记忆和梳理。</li><li>针对其中部分知识点，已做举例补充。</li><li>有关Canvas部分的知识点不包括在内，将作为一个单独的专题进行梳理。<a id="more"></a></li></ul><p><img src="../assets/20190821/html5.png" alt="Alt text"></p><h2 id="History-API"><a href="#History-API" class="headerlink" title="History API"></a>History API</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;最近阅读了HTML5权威指南，给HTML5中新增的知识点做了张思维导图，方便二次记忆和梳理。&lt;/li&gt;
+&lt;li&gt;针对其中部分知识点，已做举例补充。&lt;/li&gt;
+&lt;li&gt;有关Canvas部分的知识点不包括在内，将作为一个单独的专题进行梳理。
+    
+    </summary>
+    
+      <category term="前端" scheme="http://dangoying.ink/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="前端" scheme="http://dangoying.ink/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>JS引用类型</title>
