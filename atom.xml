@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dangoying.ink/"/>
-  <updated>2019-08-25T05:59:08.197Z</updated>
+  <updated>2019-08-27T15:12:49.210Z</updated>
   <id>http://dangoying.ink/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSS中的百分比计算</title>
+    <link href="http://dangoying.ink/CSS%E4%B8%AD%E7%9A%84%E7%99%BE%E5%88%86%E6%AF%94%E8%AE%A1%E7%AE%97.html"/>
+    <id>http://dangoying.ink/CSS中的百分比计算.html</id>
+    <published>2019-08-27T14:10:30.000Z</published>
+    <updated>2019-08-27T15:12:49.210Z</updated>
+    
+    <content type="html"><![CDATA[<p>CSS布局中会用到很多百分比，但他们究竟都是如何计算的呢，你可能一个不小心就会把他们混淆在一起，所以这里就对CSS中所有可以用到百分比的属性做一个总结，方便更加系统的理解和记忆。</p><a id="more"></a><h2 id="font-size"><a href="#font-size" class="headerlink" title="font-size"></a>font-size</h2><p>根据元素字体大小，当前大小为100%</p><h2 id="line-height"><a href="#line-height" class="headerlink" title="line-height"></a>line-height</h2><p>根据元素字体大小，当前大小为100%</p><h2 id="translate"><a href="#translate" class="headerlink" title="translate"></a>translate</h2><p>根据元素大小，当前大小为100%</p><h2 id="width"><a href="#width" class="headerlink" title="width"></a>width</h2><ul><li>正常文档流和浮动：百分比相对于父元素content-box</li><li>绝对定位：百分比相对于父元素padding-box</li></ul><h2 id="height"><a href="#height" class="headerlink" title="height"></a>height</h2><ul><li>正常文档流和浮动：百分比相对于父元素content-box</li><li>绝对定位：百分比相对于父元素padding-box</li><li>当父元素高度为auto：子元素高度百分比会被忽略</li></ul><h2 id="margin"><a href="#margin" class="headerlink" title="margin"></a>margin</h2><ul><li>正常文档流和浮动：百分比相对于父元素的content-box宽度</li><li>绝对定位：百分比相对于父元素的padding-box宽度</li></ul><h2 id="padding"><a href="#padding" class="headerlink" title="padding"></a>padding</h2><ul><li>正常文档流和浮动：百分比相对于父元素的content-box宽度</li><li>绝对定位：百分比相对于父元素的padding-box宽度</li></ul><h2 id="top-bottom-left-right"><a href="#top-bottom-left-right" class="headerlink" title="top/bottom/left/right"></a>top/bottom/left/right</h2><ul><li>非定位元素：无效果</li><li>相对定位： top和bottom百分比是相对父元素的content-box高度，left和right百分比是相对父元素的content-box宽度</li><li>绝对定位：top和bottom百分比是相对最近一级非static定位父元素的padding-box高度，left和right百分比是相对最近一级非static定位父元素的padding-box宽度</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CSS布局中会用到很多百分比，但他们究竟都是如何计算的呢，你可能一个不小心就会把他们混淆在一起，所以这里就对CSS中所有可以用到百分比的属性做一个总结，方便更加系统的理解和记忆。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://dangoying.ink/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="前端" scheme="http://dangoying.ink/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="CSS" scheme="http://dangoying.ink/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title>HTML5知识点</title>
