@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'RAEGHV9C55',
+      apiKey: '786548c432d905298e9946dd4dd863f4',
+      indexName: 'hexo',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="俗话说得好，“人靠衣装，佛靠金装”，对于一个页面来说，美观与否，CSS起着重大的作用，而随着越来越多的使用，CSS也暴露出不少缺陷：  语法不够强大，比如无法嵌套书写导致模块化开发中需要书写很多重复的选择器 没有变量和合理的样式复用机制，使得逻辑上相关的属性值必须以字面量的形式重复输出，导致难以维护  于是，CSS预处理器就诞生了。CSS预处理器用一种专门的编程语言，进行Web页面样式设计，然后再">
+<meta name="keywords" content="前端,CSS,CSS3,LESS,SASS,Stylus">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SASS,LESS,Stylus哪家强">
+<meta property="og:url" content="http://dangoying.ink/SASS-LESS-Stylus哪家强.html">
+<meta property="og:site_name" content="团子的代码作坊">
+<meta property="og:description" content="俗话说得好，“人靠衣装，佛靠金装”，对于一个页面来说，美观与否，CSS起着重大的作用，而随着越来越多的使用，CSS也暴露出不少缺陷：  语法不够强大，比如无法嵌套书写导致模块化开发中需要书写很多重复的选择器 没有变量和合理的样式复用机制，使得逻辑上相关的属性值必须以字面量的形式重复输出，导致难以维护  于是，CSS预处理器就诞生了。CSS预处理器用一种专门的编程语言，进行Web页面样式设计，然后再">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-30T15:58:57.638Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SASS,LESS,Stylus哪家强">
+<meta name="twitter:description" content="俗话说得好，“人靠衣装，佛靠金装”，对于一个页面来说，美观与否，CSS起着重大的作用，而随着越来越多的使用，CSS也暴露出不少缺陷：  语法不够强大，比如无法嵌套书写导致模块化开发中需要书写很多重复的选择器 没有变量和合理的样式复用机制，使得逻辑上相关的属性值必须以字面量的形式重复输出，导致难以维护  于是，CSS预处理器就诞生了。CSS预处理器用一种专门的编程语言，进行Web页面样式设计，然后再">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="团子的代码作坊" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://dangoying.ink/SASS-LESS-Stylus哪家强.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>SASS,LESS,Stylus哪家强 | 团子的代码作坊</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">团子的代码作坊</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">心有猛兽、细嗅蔷薇</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dangoying.ink/SASS-LESS-Stylus哪家强.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dango">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/blogImg/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="团子的代码作坊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SASS,LESS,Stylus哪家强
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-30 16:41:14" itemprop="dateCreated datePublished" datetime="2019-08-30T16:41:14+08:00">2019-08-30</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <a href="/SASS-LESS-Stylus哪家强.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/SASS-LESS-Stylus哪家强.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/SASS-LESS-Stylus哪家强.html" class="leancloud_visitors" data-flag-title="SASS,LESS,Stylus哪家强">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>俗话说得好，“人靠衣装，佛靠金装”，对于一个页面来说，美观与否，CSS起着重大的作用，而随着越来越多的使用，CSS也暴露出不少缺陷：</p>
+<ul>
+<li>语法不够强大，比如无法嵌套书写导致模块化开发中需要书写很多重复的选择器</li>
+<li>没有变量和合理的样式复用机制，使得逻辑上相关的属性值必须以字面量的形式重复输出，导致难以维护</li>
+</ul>
+<p>于是，CSS预处理器就诞生了。CSS预处理器用一种专门的编程语言，进行Web页面样式设计，然后再编译成正常的CSS文件，以供项目使用。CSS预处理器为CSS增加一些编程的特性，无需考虑浏览器的兼容性问题。<br>本文将主要介绍 Sass、Less 和 Stylus 这三种 css 预处理器，并比较分析他们的区别。</p>
+<a id="more"></a>
+<h2 id="Sass-Scss、Less、stylus是什么"><a href="#Sass-Scss、Less、stylus是什么" class="headerlink" title="Sass/Scss、Less、stylus是什么?"></a>Sass/Scss、Less、stylus是什么?</h2><ul>
+<li>Sass：Sass是一种动态样式语言，语法属于缩排语法，是最早也是最成熟的CSS预处理器，拥有ruby社区的支持和compass这一最强大的css框架，目前受LESS影响，已经进化到了全面兼容CSS的SCSS。</li>
+<li>Less：Less也是一种动态样式语言. 受Sass影响较大,对CSS赋予了动态语言的特性，如变量，继承，运算， 函数。Less既可以在客户端上运行 (支持IE 6+, Webkit, Firefox)，也可在服务端运行(借助 Node.js)。</li>
+<li>Stylus：2010年产生于node社区， 主要用来给Node项目进行CSS预处理支持，人气不如前两者Stylus被称为是一种革命性的新语言，提供一个高效、动态、和使用表达方式来生成CSS，以供浏览器使用。Stylus同时支持缩进和CSS常规样式书写规则。需要安装nodeStylus的语法花样多一些，它的文件扩展名是“.styl”，Stylus也接受标准的CSS语法，但是他也像Sass老的语法规则，使用缩进控制，同时Stylus也接受不带大括号({})和分号的语法。</li>
+</ul>
+<h2 id="Sass-Scss、Less、stylus的区别"><a href="#Sass-Scss、Less、stylus的区别" class="headerlink" title="Sass/Scss、Less、stylus的区别"></a>Sass/Scss、Less、stylus的区别</h2><h3 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h3><p>Sass的安装需要Ruby环境，是在服务端处理的，而Less是需要引入less.js来处理Less代码输出css到浏览器，也可以在开发环节使用Less，然后编译成css文件，直接放到项目中，也有 Less.app、SimpleLess、CodeKit.app这样的工具，也有在线编译地址。Stylus需要安装node，然后安装最新的stylus包即可使用。</p>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><h4 id="Sass"><a href="#Sass" class="headerlink" title="Sass"></a>Sass</h4><p>变量以 <code>$</code> 符号开始，赋值像设置CSS属性那样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$width: 5em;</span><br><span class="line">#main &#123;</span><br><span class="line">  width: $width;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#main &#123;</span><br><span class="line">  width: 5em;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>变量支持块级作用域，嵌套规则内定义的变量只能在嵌套规则内使用（局部变量），不在嵌套规则内定义的变量则可在任何地方使用（全局变量）。将局部变量转换为全局变量可以添加 !global 声明。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#main &#123;</span><br><span class="line">  $width: 5em !global;</span><br><span class="line">  width: $width;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#sidebar &#123;</span><br><span class="line">  width: $width;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#main &#123;</span><br><span class="line">  width: 5em;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#sidebar &#123;</span><br><span class="line">  width: 5em;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Less"><a href="#Less" class="headerlink" title="Less"></a>Less</h4><p>变量以 <code>@</code> 符号开始，赋值像设置CSS属性那样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@width: 10px;</span><br><span class="line">@height: @width + 10px;</span><br><span class="line"></span><br><span class="line">#header &#123;</span><br><span class="line">  width: @width;</span><br><span class="line">  height: @height;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#header &#123;</span><br><span class="line">  width: 10px;</span><br><span class="line">  height: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>变量是延迟加载的，在使用前不一定要预先声明。在定义一个变量两次时，只会使用最后定义的变量，Less会从当前作用域中向上搜索。这个行为类似于CSS的定义中始终使用最后定义的属性值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@var: 0;</span><br><span class="line">.class &#123;</span><br><span class="line">  @var: 1;</span><br><span class="line">  .brass &#123;</span><br><span class="line">    @var: 2;</span><br><span class="line">    three: @var;</span><br><span class="line">    @var: 3;</span><br><span class="line">  &#125;</span><br><span class="line">  one: @var;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.class &#123;</span><br><span class="line">  one: 1;</span><br><span class="line">&#125;</span><br><span class="line">.class .brass &#123;</span><br><span class="line">  three: 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Stylus"><a href="#Stylus" class="headerlink" title="Stylus"></a>Stylus</h4><p>没有特殊的要求,可以使用 <code>$</code> 符号开头。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">font-size = 14px</span><br><span class="line">font = font-size &quot;Lucida Grande&quot;, Arial</span><br><span class="line">body</span><br><span class="line">  font font, sans-serif</span><br></pre></td></tr></table></figure></p>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">  font: 14px &quot;Lucida Grande&quot;, Arial, sans-serif;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="插值语句"><a href="#插值语句" class="headerlink" title="插值语句"></a>插值语句</h3><h4 id="Sass-1"><a href="#Sass-1" class="headerlink" title="Sass"></a>Sass</h4><p>通过 <code>#{}</code> 插值语句可以在选择器或属性名中使用变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$name: foo;</span><br><span class="line">$attr: border;</span><br><span class="line">p.#&#123;$name&#125; &#123;</span><br><span class="line">  #&#123;$attr&#125;-color: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p.foo &#123;</span><br><span class="line">  border-color: blue; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Less-1"><a href="#Less-1" class="headerlink" title="Less"></a>Less</h4><p>通过 <code>{}</code> 插值语句可以在选择器或属性名中使用变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@mySelector: banner;</span><br><span class="line">.@&#123;mySelector&#125; &#123;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">  line-height: 40px;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.banner &#123;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">  line-height: 40px;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Stylus-1"><a href="#Stylus-1" class="headerlink" title="Stylus"></a>Stylus</h4><p>Stylus支持通过使用{}字符包围表达式来插入值，其会变成标识符的一部分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vendor(prop,args)</span><br><span class="line">  -webkit-&#123;prop&#125; args</span><br><span class="line">  -moz-&#123;prop&#125; args</span><br><span class="line">  &#123;prop&#125; args</span><br><span class="line">border-radius()</span><br><span class="line">  vendor(&apos;border-radius&apos;,arguments)</span><br><span class="line">button</span><br><span class="line">  border-radius 1px 2px / 3px 4px</span><br></pre></td></tr></table></figure></p>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">button &#123;</span><br><span class="line">  -webkit-border-radius: 1px 2px / 3px 4px;</span><br><span class="line">  -moz-border-radius: 1px 2px / 3px 4px;</span><br><span class="line">  border-radius: 1px 2px / 3px 4px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h3><p>在嵌套上，三种选择器基本一致，没有太大区别。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a &#123;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">  text-decoration: none;</span><br><span class="line">  &amp;:hover &#123; text-decoration: underline; &#125;</span><br><span class="line">  body.firefox &amp; &#123; font-weight: normal; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a &#123;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">  text-decoration: none; </span><br><span class="line">&#125;</span><br><span class="line">a:hover &#123;</span><br><span class="line">  text-decoration: underline; </span><br><span class="line">&#125;</span><br><span class="line">body.firefox a &#123;</span><br><span class="line">  font-weight: normal; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Sass还提供一种属性嵌套功能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.funky &#123;</span><br><span class="line">  font: &#123;</span><br><span class="line">    family: fantasy;</span><br><span class="line">    size: 30em;</span><br><span class="line">    weight: bold;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.funky &#123;</span><br><span class="line">  font-family: fantasy;</span><br><span class="line">  font-size: 30em;</span><br><span class="line">  font-weight: bold; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><h4 id="Sass-2"><a href="#Sass-2" class="headerlink" title="Sass"></a>Sass</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.error &#123;</span><br><span class="line">  border: 1px #f00;</span><br><span class="line">  background-color: #fdd;</span><br><span class="line">&#125;</span><br><span class="line">.attention &#123;</span><br><span class="line">  font-size: 3em;</span><br><span class="line">  background-color: #ff0;</span><br><span class="line">&#125;</span><br><span class="line">.seriousError &#123;</span><br><span class="line">  @extend .error;</span><br><span class="line">  @extend .attention;</span><br><span class="line">  border-width: 3px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.error, .seriousError &#123;</span><br><span class="line">  border: 1px #f00;</span><br><span class="line">  background-color: #fdd; </span><br><span class="line">&#125;</span><br><span class="line">.attention, .seriousError &#123;</span><br><span class="line">  font-size: 3em;</span><br><span class="line">  background-color: #ff0; </span><br><span class="line">&#125;</span><br><span class="line">.seriousError &#123;</span><br><span class="line">  border-width: 3px; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Less-2"><a href="#Less-2" class="headerlink" title="Less"></a>Less</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nav ul &#123;</span><br><span class="line">  &amp;:extend(.inline);</span><br><span class="line">  background: blue;</span><br><span class="line">&#125;</span><br><span class="line">.inline &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nav ul &#123;</span><br><span class="line">  background: blue;</span><br><span class="line">&#125;</span><br><span class="line">.inline,</span><br><span class="line">nav ul &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Stylus-2"><a href="#Stylus-2" class="headerlink" title="Stylus"></a>Stylus</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">form</span><br><span class="line">  input[type=text]</span><br><span class="line">  padding: 5px</span><br><span class="line">  border: 1px solid #eee</span><br><span class="line">  color: #ddd</span><br><span class="line"></span><br><span class="line">textarea</span><br><span class="line">  @extends form input[type=text]</span><br><span class="line">  padding: 10px</span><br></pre></td></tr></table></figure>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">form input[type=text],</span><br><span class="line">textarea &#123;</span><br><span class="line">  padding: 5px;</span><br><span class="line">  border: 1px solid #eee;</span><br><span class="line">  color: #ddd;</span><br><span class="line">&#125;</span><br><span class="line">textarea &#123;</span><br><span class="line">  padding: 10px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="混入-Mixins"><a href="#混入-Mixins" class="headerlink" title="混入 (Mixins)"></a>混入 (Mixins)</h3><h4 id="Sass-3"><a href="#Sass-3" class="headerlink" title="Sass"></a>Sass</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@mixin sexy-border($color, $width: 1in) &#123;</span><br><span class="line">  border: &#123;</span><br><span class="line">    color: $color;</span><br><span class="line">    width: $width;</span><br><span class="line">    style: dashed;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">p &#123; @include sexy-border(blue); &#125;</span><br><span class="line">h1 &#123; @include sexy-border(blue, 2in); &#125;</span><br></pre></td></tr></table></figure>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">  border-color: blue;</span><br><span class="line">  border-width: 1in;</span><br><span class="line">  border-style: dashed; </span><br><span class="line">&#125;</span><br><span class="line">h1 &#123;</span><br><span class="line">  border-color: blue;</span><br><span class="line">  border-width: 2in;</span><br><span class="line">  border-style: dashed; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Less-3"><a href="#Less-3" class="headerlink" title="Less"></a>Less</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.my-mixin &#123;</span><br><span class="line">  color: black;</span><br><span class="line">&#125;</span><br><span class="line">.my-other-mixin() &#123;</span><br><span class="line">  background: white;</span><br><span class="line">&#125;</span><br><span class="line">.class &#123;</span><br><span class="line">  .my-mixin;</span><br><span class="line">  .my-other-mixin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.my-mixin &#123;</span><br><span class="line">  color: black;</span><br><span class="line">&#125;</span><br><span class="line">.class &#123;</span><br><span class="line">  color: black;</span><br><span class="line">  background: white;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Stylus-3"><a href="#Stylus-3" class="headerlink" title="Stylus"></a>Stylus</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">border-radius(n)</span><br><span class="line">  -webkit-border-radius n</span><br><span class="line">  -moz-border-radius n</span><br><span class="line">  border-radius n</span><br><span class="line">form input[type=button]</span><br><span class="line">  border-radius(5px)</span><br></pre></td></tr></table></figure>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">form input[type=button] &#123;</span><br><span class="line">  -webkit-border-radius: 5px;</span><br><span class="line">  -moz-border-radius: 5px;</span><br><span class="line">  border-radius: 5px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="import"><a href="#import" class="headerlink" title="@import"></a>@import</h3><p>三种语言基本一致。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@import &quot;foo.css&quot;;</span><br><span class="line">@import &quot;foo&quot; screen;</span><br><span class="line">@import &quot;http://foo.com/bar&quot;;</span><br><span class="line">@import url(foo);</span><br></pre></td></tr></table></figure></p>
+<p>Sass还提供一种分音。如果需要导入 SCSS 或者 Sass 文件，但又不希望将其编译为 CSS，只需要在文件名前添加下划线，这样会告诉 Sass 不要编译这些文件，但导入语句中却不需要添加下划线。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//将文件命名为 _colors.scss，便不会编译 _colours.css 文件。</span><br><span class="line">@import &quot;colors&quot;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="输出设置"><a href="#输出设置" class="headerlink" title="输出设置"></a>输出设置</h3><p>Sass 提供了四种输出格式，可以通过 :style option 选项设定，或者在命令行中使用 –style 选项。</p>
+<ul>
+<li>:nested：Nested （嵌套）样式，默认的输出格式。选择器与属性等单独占用一行，缩进量与 Sass 文件中一致，每行的缩进量反映了其在嵌套规则内的层数。</li>
+<li>:expanded：输出更像是手写的样式，选择器、属性等各占用一行，属性根据选择器缩进，而选择器不做任何缩进。</li>
+<li>:compact：每条 CSS 规则只占一行，包含其下的所有属性。嵌套过的选择器在输出时没有空行，不嵌套的选择器会输出空白行作为分隔符。</li>
+<li>:compressed：删除所有无意义的空格、空白行、以及注释，力求将文件体积压缩到最小，同时也会做出其他调整，比如会自动替换占用空间最小的颜色表达方式。</li>
+</ul>
+<h3 id="控制指令"><a href="#控制指令" class="headerlink" title="控制指令"></a>控制指令</h3><h4 id="Sass-4"><a href="#Sass-4" class="headerlink" title="Sass"></a>Sass</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$type: monster;</span><br><span class="line">p &#123;</span><br><span class="line">  @if $type == ocean &#123;</span><br><span class="line">    color: blue;</span><br><span class="line">  &#125; @else if $type == matador &#123;</span><br><span class="line">    color: red;</span><br><span class="line">  &#125; @else if $type == monster &#123;</span><br><span class="line">    color: green;</span><br><span class="line">  &#125; @else &#123;</span><br><span class="line">    color: black;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">  color: green; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Less-4"><a href="#Less-4" class="headerlink" title="Less"></a>Less</h4><p>在1.5.0以前，使用 <code>when</code> 的语法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.my-optional-style() when (@my-option = true) &#123;</span><br><span class="line">  button &#123;</span><br><span class="line">    color: white;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">.my-optional-style();</span><br></pre></td></tr></table></figure></p>
+<p>1.5.0以后也可以使用 <code>&amp; when</code> 的方式模拟 <code>if</code> 。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&amp; when (@my-option = true) &#123;</span><br><span class="line">  button &#123;</span><br><span class="line">    color: white;</span><br><span class="line">  &#125;</span><br><span class="line">  a &#123;</span><br><span class="line">    color: blue;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用 <code>if</code> 。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@dr: if(@my-option = true, &#123;</span><br><span class="line">  button &#123;</span><br><span class="line">    color: white;</span><br><span class="line">  &#125;</span><br><span class="line">  a &#123;</span><br><span class="line">    color: blue;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">@dr();</span><br></pre></td></tr></table></figure></p>
+<h4 id="Stylus-4"><a href="#Stylus-4" class="headerlink" title="Stylus"></a>Stylus</h4><p>更接近Sass。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">overload-padding = true</span><br><span class="line">if overload-padding</span><br><span class="line">  padding(y, x)</span><br><span class="line">    margin y x</span><br><span class="line">body</span><br><span class="line">  padding 5px 10px</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>Sass的优势得益于对函数和库的支持，但是因为基于Ruby环境，并不是特别友好。</li>
+<li>Less相对清晰，也更接近CSS本身的写法，由于受Sass的极大的影响，我们也能看到，其中一些长期被开发者诟病的写法也得到了改善，对于Less的前景还是相对看好的。</li>
+<li>Stylus可以说是集合了Sass和Less的优点，并进行极大的自由化，虽然目前Stylus的使用程度不如前两者广泛，但是鉴于其基于Node环境，语法大多参考Sass，在未来将是一个十分有生命力的CSS预处理器。</li>
+</ul>
+<blockquote>
+<p>参考链接：<br><a href="https://zhuanlan.zhihu.com/p/23382462" target="_blank" rel="noopener">浅谈css预处理器，Sass、Less和Stylus-知乎</a><br><a href="https://juejin.im/post/5c9b17cbf265da60c95b7c3a" target="_blank" rel="noopener">关于sass（scss）、less、postcss、stylus等的用法与区别-掘金</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/LESS/" rel="tag"><i class="fa fa-tag"></i> LESS</a>
+          
+            <a href="/tags/SASS/" rel="tag"><i class="fa fa-tag"></i> SASS</a>
+          
+            <a href="/tags/Stylus/" rel="tag"><i class="fa fa-tag"></i> Stylus</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/CSS中的百分比计算.html" rel="next" title="CSS中的百分比计算">
+                <i class="fa fa-chevron-left"></i> CSS中的百分比计算
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/assets/blogImg/avatar.png" alt="Dango">
+            
+              <p class="site-author-name" itemprop="name">Dango</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/minorjone" title="GitHub &rarr; https://github.com/minorjone" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:879275999@qq.com" title="E-Mail &rarr; mailto:879275999@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sass-Scss、Less、stylus是什么"><span class="nav-number">1.</span> <span class="nav-text">Sass/Scss、Less、stylus是什么?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sass-Scss、Less、stylus的区别"><span class="nav-number">2.</span> <span class="nav-text">Sass/Scss、Less、stylus的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译环境"><span class="nav-number">2.1.</span> <span class="nav-text">编译环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量声明"><span class="nav-number">2.2.</span> <span class="nav-text">变量声明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sass"><span class="nav-number">2.2.1.</span> <span class="nav-text">Sass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less"><span class="nav-number">2.2.2.</span> <span class="nav-text">Less</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stylus"><span class="nav-number">2.2.3.</span> <span class="nav-text">Stylus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插值语句"><span class="nav-number">2.3.</span> <span class="nav-text">插值语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sass-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">Sass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">Less</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stylus-1"><span class="nav-number">2.3.3.</span> <span class="nav-text">Stylus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套"><span class="nav-number">2.4.</span> <span class="nav-text">嵌套</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承"><span class="nav-number">2.5.</span> <span class="nav-text">继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sass-2"><span class="nav-number">2.5.1.</span> <span class="nav-text">Sass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-2"><span class="nav-number">2.5.2.</span> <span class="nav-text">Less</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stylus-2"><span class="nav-number">2.5.3.</span> <span class="nav-text">Stylus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混入-Mixins"><span class="nav-number">2.6.</span> <span class="nav-text">混入 (Mixins)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sass-3"><span class="nav-number">2.6.1.</span> <span class="nav-text">Sass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-3"><span class="nav-number">2.6.2.</span> <span class="nav-text">Less</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stylus-3"><span class="nav-number">2.6.3.</span> <span class="nav-text">Stylus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#import"><span class="nav-number">2.7.</span> <span class="nav-text">@import</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出设置"><span class="nav-number">2.8.</span> <span class="nav-text">输出设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制指令"><span class="nav-number">2.9.</span> <span class="nav-text">控制指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sass-4"><span class="nav-number">2.9.1.</span> <span class="nav-text">Sass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-4"><span class="nav-number">2.9.2.</span> <span class="nav-text">Less</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stylus-4"><span class="nav-number">2.9.3.</span> <span class="nav-text">Stylus</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-anchor"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dango</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+<div class="copyright">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'BHfz5zxfsCYHnHXpWKpO5f38-gzGzoHsz',
+    appKey: 'LQI6U9bUcPXquDU0yEDFAu0U',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.7.0"></script>
+
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
