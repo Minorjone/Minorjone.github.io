@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dangoying.ink/"/>
-  <updated>2019-08-31T14:09:48.218Z</updated>
+  <updated>2019-08-31T15:29:37.860Z</updated>
   <id>http://dangoying.ink/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ES6知识点梳理</title>
+    <link href="http://dangoying.ink/ES6%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86.html"/>
+    <id>http://dangoying.ink/ES6知识点梳理.html</id>
+    <published>2019-08-31T14:53:35.000Z</published>
+    <updated>2019-08-31T15:29:37.860Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近拜读了阮一峰老师的ES6详解，虽然ES9已经大摇大摆亮相，但是ES6依然是一个跨时代的版本，其中不乏很多目前使用率颇高，功能性能上大为改进的新语法，所以还是决定对ES6做一个学习总结，也对其中部分闪光语法做详细解释。</p><a id="more"></a><h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="../assets/20190831/es6.png" alt="Alt text"></p><h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近拜读了阮一峰老师的ES6详解，虽然ES9已经大摇大摆亮相，但是ES6依然是一个跨时代的版本，其中不乏很多目前使用率颇高，功能性能上大为改进的新语法，所以还是决定对ES6做一个学习总结，也对其中部分闪光语法做详细解释。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://dangoying.ink/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="前端" scheme="http://dangoying.ink/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="JS" scheme="http://dangoying.ink/tags/JS/"/>
+    
+      <category term="ES6" scheme="http://dangoying.ink/tags/ES6/"/>
+    
+  </entry>
   
   <entry>
     <title>CSS3知识点梳理</title>
