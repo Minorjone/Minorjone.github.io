@@ -1,1 +1,1 @@
-http://dangoying.ink/从执行上下文深入理解闭包.html
+http://dangoying.ink/JavaScript执行机制.html
