@@ -1,1 +1,1 @@
-http://dangoying.ink/从ECMAScript规范解读this.html
+http://dangoying.ink/跨域问题及其解决方式.html
