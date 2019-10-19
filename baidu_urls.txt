@@ -1,1 +1,1 @@
-http://dangoying.ink/跨域问题及其解决方式.html
+http://dangoying.ink/XSS、CSRF攻击问题详解.html
