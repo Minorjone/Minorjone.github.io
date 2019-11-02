@@ -1,1 +1,1 @@
-http://dangoying.ink/XSS、CSRF攻击问题详解.html
+http://dangoying.ink/观察者模式与发布订阅模式.html

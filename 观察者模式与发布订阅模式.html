@@ -96,20 +96,21 @@
 
 
 
-  <meta name="description" content="最近开发的项目新需求中，需要一个金额的输入框，其输入上限为16位整数带两位小数的浮点类型，由于前台显示的金额是字符串型，在传递给后台时使用了parseFloat()方法，却发现在测试校验最大临界值时，发生了四舍五入，最终导致校验失败，由此引发了我对JS浮点数表示和运算了深入理解。">
-<meta name="keywords" content="前端,JS,精度">
+  <meta name="description" content="关于观察者模式与发布/订阅模式，不少大神都有帖子对他们做出了解释，但是很多文章都将两者混在了一起，认为他们就是同一种模式，实际上这两者还是有些差异的，所以本文就从我在谷歌的查阅和个人的理解，来仔细讲讲这两种模式，已经他们的一些应用场景。">
+<meta name="keywords" content="前端,JS,vue,node">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS精度丢失问题">
-<meta property="og:url" content="http://dangoying.ink/JS精度丢失问题.html">
+<meta property="og:title" content="观察者模式与发布订阅模式">
+<meta property="og:url" content="http://dangoying.ink/观察者模式与发布订阅模式.html">
 <meta property="og:site_name" content="团子的代码作坊">
-<meta property="og:description" content="最近开发的项目新需求中，需要一个金额的输入框，其输入上限为16位整数带两位小数的浮点类型，由于前台显示的金额是字符串型，在传递给后台时使用了parseFloat()方法，却发现在测试校验最大临界值时，发生了四舍五入，最终导致校验失败，由此引发了我对JS浮点数表示和运算了深入理解。">
+<meta property="og:description" content="关于观察者模式与发布/订阅模式，不少大神都有帖子对他们做出了解释，但是很多文章都将两者混在了一起，认为他们就是同一种模式，实际上这两者还是有些差异的，所以本文就从我在谷歌的查阅和个人的理解，来仔细讲讲这两种模式，已经他们的一些应用场景。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://dangoying.ink/assets/20190330/1.jpg">
-<meta property="og:updated_time" content="2019-04-01T15:02:19.886Z">
+<meta property="og:image" content="http://dangoying.ink/assets/20191102/1.jpg">
+<meta property="og:image" content="http://dangoying.ink/assets/20191102/2.jpg">
+<meta property="og:updated_time" content="2019-11-02T15:47:59.069Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS精度丢失问题">
-<meta name="twitter:description" content="最近开发的项目新需求中，需要一个金额的输入框，其输入上限为16位整数带两位小数的浮点类型，由于前台显示的金额是字符串型，在传递给后台时使用了parseFloat()方法，却发现在测试校验最大临界值时，发生了四舍五入，最终导致校验失败，由此引发了我对JS浮点数表示和运算了深入理解。">
-<meta name="twitter:image" content="http://dangoying.ink/assets/20190330/1.jpg">
+<meta name="twitter:title" content="观察者模式与发布订阅模式">
+<meta name="twitter:description" content="关于观察者模式与发布/订阅模式，不少大神都有帖子对他们做出了解释，但是很多文章都将两者混在了一起，认为他们就是同一种模式，实际上这两者还是有些差异的，所以本文就从我在谷歌的查阅和个人的理解，来仔细讲讲这两种模式，已经他们的一些应用场景。">
+<meta name="twitter:image" content="http://dangoying.ink/assets/20191102/1.jpg">
 
 
 
@@ -118,7 +119,7 @@
 
 
 
-  <link rel="canonical" href="http://dangoying.ink/JS精度丢失问题.html">
+  <link rel="canonical" href="http://dangoying.ink/观察者模式与发布订阅模式.html">
 
 
 
@@ -128,7 +129,7 @@
   };
 </script>
 
-  <title>JS精度丢失问题 | 团子的代码作坊</title>
+  <title>观察者模式与发布订阅模式 | 团子的代码作坊</title>
   
 
 
@@ -366,7 +367,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dangoying.ink/JS精度丢失问题.html">
+    <link itemprop="mainEntityOfPage" href="http://dangoying.ink/观察者模式与发布订阅模式.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dango">
@@ -383,7 +384,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JS精度丢失问题
+          <h1 class="post-title" itemprop="name headline">观察者模式与发布订阅模式
 
               
             
@@ -409,7 +410,7 @@
                 
               
 
-              <time title="创建时间：2019-03-28 22:56:27" itemprop="dateCreated datePublished" datetime="2019-03-28T22:56:27+08:00">2019-03-28</time>
+              <time title="创建时间：2019-11-02 15:16:47" itemprop="dateCreated datePublished" datetime="2019-11-02T15:16:47+08:00">2019-11-02</time>
             
 
             
@@ -445,8 +446,8 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
             
-                <a href="/JS精度丢失问题.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/JS精度丢失问题.html" itemprop="commentCount"></span>
+                <a href="/观察者模式与发布订阅模式.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/观察者模式与发布订阅模式.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -454,7 +455,7 @@
 
           
           
-            <span id="/JS精度丢失问题.html" class="leancloud_visitors" data-flag-title="JS精度丢失问题">
+            <span id="/观察者模式与发布订阅模式.html" class="leancloud_visitors" data-flag-title="观察者模式与发布订阅模式">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -485,32 +486,47 @@
       
 
       
-        <p>最近开发的项目新需求中，需要一个金额的输入框，其输入上限为16位整数带两位小数的浮点类型，由于前台显示的金额是字符串型，在传递给后台时使用了<code>parseFloat()</code>方法，却发现在测试校验最大临界值时，发生了四舍五入，最终导致校验失败，由此引发了我对JS浮点数表示和运算了深入理解。</p>
+        <p>关于观察者模式与发布/订阅模式，不少大神都有帖子对他们做出了解释，但是很多文章都将两者混在了一起，认为他们就是同一种模式，实际上这两者还是有些差异的，所以本文就从我在谷歌的查阅和个人的理解，来仔细讲讲这两种模式，已经他们的一些应用场景。</p>
 <a id="more"></a>
-<h2 id="JS浮点数精度丢失的原因"><a href="#JS浮点数精度丢失的原因" class="headerlink" title="JS浮点数精度丢失的原因"></a>JS浮点数精度丢失的原因</h2><p>由于计算机的二进制实现和位数限制，有些数无法有限表示。就像一些无理数不能有限表示，如 圆周率 3.1415926…，1.3333… 等。JS 遵循 IEEE 754 规范，采用双精度存储（double precision），占用 64 bit。</p>
-<p><img src="../assets/20190330/1.jpg" alt="Alt text"></p>
-<ul>
-<li>1位用来表示符号位</li>
-<li>11位用来表示指数</li>
-<li>52位表示尾数</li>
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>官方给出的观察者模式的解释是这样的：</p>
+<blockquote>
+<p>定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。</p>
+</blockquote>
+<p>观察者模式实现的，其实就是当目标对象的某个属性发生了改变，所有依赖着目标对象的观察者都将接到通知，做出相应动作。<br>所以在目标对象的抽象类里，会保存一个观察者序列。当目标对象的属性发生改变生，会从观察者队列里取观察者调用各自的方法。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>观察者和被观察者是抽象耦合的。</li>
+<li>建立一套触发机制。</li>
 </ul>
-<p>因为在计算机最底层，数值的运算和操作都是采用二进制实现的，所以计算机没有办法精确表示浮点数，而只能用二进制近似相等的去表示浮点数的小数部分。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0.1 &gt;&gt; 0.0001 1001 1001 1001…（1001无限循环）</span><br><span class="line">0.2 &gt;&gt; 0.0011 0011 0011 0011…（0011无限循环）</span><br></pre></td></tr></table></figure>
-<p>当进行计算或其他操作时时，四舍五入（逢1进，逢0舍）将会导致最终的运算结果存在偏差。</p>
-<p>而大整数也存在同样的问题，因为表示尾数的尾数只有52位，因此 JS 中能精准表示的最大整数是 Math.pow(2, 53)，即十进制9007199254740992。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">9007199254740992     &gt;&gt; 10000000000000...000 // 共计 53 个 0</span><br><span class="line">9007199254740992 + 1 &gt;&gt; 10000000000000...001 // 中间 52 个 0</span><br><span class="line">9007199254740992 + 2 &gt;&gt; 10000000000000...010 // 中间 51 个 0</span><br><span class="line">9007199254740992 + 1 // 丢失        //9007199254740992 </span><br><span class="line">9007199254740992 + 2 // 未丢失      //9007199254740994   </span><br><span class="line">9007199254740992 + 3 // 丢失        //9007199254740992 </span><br><span class="line">9007199254740992 + 4 // 未丢失      //9007199254740996</span><br></pre></td></tr></table></figure>
-<p>由此可知，十进制中的有穷数值，在计算机底层，可能是0、1循环的无限数值。</p>
-<p>在Java、C、C++中，均有对浮点数值的特殊处理，如Java的BigDecimal类型就是用来解决这一浮点数问题。</p>
-<h2 id="常见的出错场合"><a href="#常见的出错场合" class="headerlink" title="常见的出错场合"></a>常见的出错场合</h2><h3 id="浮点数计算、比较："><a href="#浮点数计算、比较：" class="headerlink" title="浮点数计算、比较："></a>浮点数计算、比较：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.1 + 0.2 != 0.3 // true</span><br></pre></td></tr></table></figure>
-<h3 id="大整数计算、比较："><a href="#大整数计算、比较：" class="headerlink" title="大整数计算、比较："></a>大整数计算、比较：</h3><p>普通的整数计算比较不太容易出错，除非计算范围超出 Math.pow(2, 53)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">9999999999999999 == 10000000000000001 // true</span><br></pre></td></tr></table></figure>
-<h3 id="多位数字符数值转换："><a href="#多位数字符数值转换：" class="headerlink" title="多位数字符数值转换："></a>多位数字符数值转换：</h3><p>这种情况在一些金额的计算中较容易出现，但也是最容易被忽视的一种，当用户在输入框中输入一个位数较多的字符串（不仅仅包含大数值，小数点后位数过长也包含在这一案例中），并在前台使用JS将其转换为数值，得到的结果往往是四舍五入带有偏差的值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">parseFloat(0.9);    //0.9</span><br><span class="line">parseFloat(9999999999999999.9)    //10000000000000000</span><br><span class="line">parseInt(&quot;9999999999999999&quot;);    //10000000000000000</span><br><span class="line">parseFloat(9.999999999999999);   //10</span><br></pre></td></tr></table></figure>
-<h3 id="toFixed不会四舍五入："><a href="#toFixed不会四舍五入：" class="headerlink" title="toFixed不会四舍五入："></a>toFixed不会四舍五入：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var num = 1.335;</span><br><span class="line">num.toFixed(2);   //1.33</span><br></pre></td></tr></table></figure>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="浮点数计算、比较：-1"><a href="#浮点数计算、比较：-1" class="headerlink" title="浮点数计算、比较："></a>浮点数计算、比较：</h3><p>通常解决这一问题，采用的都是将浮点部分转换成整数后进行计算</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">//浮点数转换为整数</span><br><span class="line">function toInt(num)&#123;</span><br><span class="line">    var rel = &#123;&#125;;</span><br><span class="line">    var str,pos,len,times;</span><br><span class="line">    str = (num &lt; 0) ? -num + &apos;&apos; : num + &apos;&apos;; </span><br><span class="line">    pos = str.indexOf(&apos;.&apos;);</span><br><span class="line">    len = str.substr(pos+1).length;</span><br><span class="line">    times = Math.pow(10, len);</span><br><span class="line">    rel.times = times;</span><br><span class="line">    rel.num =  num;</span><br><span class="line">    return rel;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//计算过程</span><br><span class="line">function operate(a,b,op)&#123;</span><br><span class="line">    var d1 = toInt(a);</span><br><span class="line">    var d2 = toInt(b);</span><br><span class="line">    var max = d1.times &gt; d2.times ? d1.times : d2.times;</span><br><span class="line">    var rel;</span><br><span class="line">    switch(op)&#123;</span><br><span class="line">        case &quot;+&quot; :</span><br><span class="line">            rel = (d1.num * max + d2.num * max) / max;</span><br><span class="line">            break;</span><br><span class="line">        case &quot;-&quot; :</span><br><span class="line">            rel = (d1.num * max - d2.num * max) / max;</span><br><span class="line">            break;</span><br><span class="line">        case &quot;*&quot; :</span><br><span class="line">            rel = ((d1.num * max) * (d2.num * max)) / (max * max);</span><br><span class="line">            break;</span><br><span class="line">        case &quot;/&quot; :</span><br><span class="line">            rel = (d1.num * max) / (d2.num * max);</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line">    return rel;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var rel = operate(0.3,0.1,&quot;+&quot;);   //0.4</span><br></pre></td></tr></table></figure>
-<h3 id="多位数数值转换："><a href="#多位数数值转换：" class="headerlink" title="多位数数值转换："></a>多位数数值转换：</h3><p>前台不对这类字符串进行数值转换，传到后台后，由后台进行处理</p>
-<h3 id="toFix的修复："><a href="#toFix的修复：" class="headerlink" title="toFix的修复："></a>toFix的修复：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function toFixed(num, s) &#123;</span><br><span class="line">    var times = Math.pow(10, s)</span><br><span class="line">    var des = num * times + 0.5</span><br><span class="line">    des = parseInt(des, 10) / times</span><br><span class="line">    return des + &apos;&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>如果一个被观察者对象有很多的直接和间接的观察者的话，将所有的观察者都通知到会花费很多时间。 </li>
+<li>如果在观察者和观察目标之间有循环依赖的话，观察目标会触发它们之间进行循环调用，可能导致系统崩溃。</li>
+<li>观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。</li>
+</ul>
+<p>下面通过一张图来看一下观察者模式的实现。</p>
+<p><img src="../assets/20191102/1.jpg" alt="Alt text"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">class Subject &#123;</span><br><span class="line">   let observers = [];</span><br><span class="line">   let state;</span><br><span class="line"> </span><br><span class="line">   getState() &#123;</span><br><span class="line">      return this.state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   setState(state) &#123;</span><br><span class="line">      this.state = state;</span><br><span class="line">      notifyAllObservers();</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   attach(observer)&#123;</span><br><span class="line">      observers.push(observer);      </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   notifyAllObservers()&#123;</span><br><span class="line">      for (observer in observers) &#123;</span><br><span class="line">         observer.update();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Observer &#123;</span><br><span class="line">   let subject;</span><br><span class="line">   update();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class BinaryObserver extends Observer &#123; </span><br><span class="line">  constructor(subject) &#123; </span><br><span class="line">    super();</span><br><span class="line">    subject.attach(this);</span><br><span class="line">  &#125; </span><br><span class="line">  update() &#123;</span><br><span class="line">    console.log(&quot;Binary&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class OctalObserver extends Observer &#123; </span><br><span class="line">  constructor(subject) &#123; </span><br><span class="line">    super();</span><br><span class="line">    subject.attach(this);</span><br><span class="line">  &#125; </span><br><span class="line">  update() &#123;</span><br><span class="line">    console.log(&quot;Octal&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var subject = new Subject(); </span><br><span class="line">var binaryObserver = new BinaryObserver(subject);</span><br><span class="line">var octalObserver = new OctalObserver(subject);</span><br><span class="line"></span><br><span class="line">subject.setState(15);</span><br><span class="line">//Binary</span><br><span class="line">//Octal</span><br></pre></td></tr></table></figure>
+<h2 id="发布-订阅模式"><a href="#发布-订阅模式" class="headerlink" title="发布/订阅模式"></a>发布/订阅模式</h2><p>在很多文章里讲到的观察者模式，其实说的都是发布订阅模式，那么他们的差别到底在哪里呢，让我们一点点往下看。<br>维基中对于发布/订阅是这样描述的：</p>
+<blockquote>
+<p>发布-订阅是一种消息范式，消息的发送者（称为发布者）不会将消息直接发送给特定的接收者（称为订阅者）。而是将发布的消息分为不同的类别，无需了解哪些订阅者（如果有的话）可能存在。同样的，订阅者可以表达对一个或多个类别的兴趣，只接收感兴趣的消息，无需了解哪些发布者（如果有的话）存在。</p>
+</blockquote>
+<p>也就是说，发布/订阅模式和观察者最大的差别就在于消息是否通过一个中间类进行转发。</p>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>相较于观察者模式，发布/订阅发布者和订阅者的耦合性更低</li>
+<li>通过并行操作，消息缓存，基于树或基于网络的路由等技术，发布/订阅提供了比传统的客户端–服务器更好的可扩展性</li>
+</ul>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>当中间类采用定时发布通知时，使用发布订阅无法确定所有订阅者是否都成功收到通知</li>
+<li>当负载激增，请求订阅的订阅者数量增加，每个订阅者接收到通知的速度将会变慢</li>
+</ul>
+<h2 id="两种模式的区别"><a href="#两种模式的区别" class="headerlink" title="两种模式的区别"></a>两种模式的区别</h2><p>由上，我们就可以得出这两者的区别了：</p>
+<ul>
+<li>发布/订阅模式相比于观察者模式多了一个中间媒介，因为这个中间媒介，发布者和订阅者的关联更为松耦合</li>
+<li>观察者模式通常用于<code>同步</code>的场景，而发布/订阅模式大多用于<code>异步</code>场景，例如消息队列。</li>
+</ul>
+<p><img src="../assets/20191102/2.jpg" alt="Alt text"></p>
+<p>到这里，肯定会有小伙伴问，为什么没有发布/订阅模式的代码实例。其实在很多JS框架中，都采用发布/订阅模式进行了不少设计，下面我们就从Vue和Node来深入讲一讲关于发布/订阅的使用。</p>
+<h2 id="Vue中的发布-订阅设计"><a href="#Vue中的发布-订阅设计" class="headerlink" title="Vue中的发布/订阅设计"></a>Vue中的发布/订阅设计</h2><p>Vue中使用到发布/订阅模式最经典的两块实现就是<code>数据双向绑定</code>和<code>父子组件通信</code>。</p>
+<h3 id="数据双向绑定"><a href="#数据双向绑定" class="headerlink" title="数据双向绑定"></a>数据双向绑定</h3>
       
     </div>
 
@@ -535,6 +551,8 @@
           
             <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
           
+            <a href="/tags/JS，vue/" rel="tag"><i class="fa fa-tag"></i> JS，vue</a>
+          
         </div>
       
 
@@ -546,8 +564,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/JS面向对象程序设计.html" rel="next" title="JS面向对象程序设计">
-                <i class="fa fa-chevron-left"></i> JS面向对象程序设计
+              <a href="/XSS、CSRF攻击问题详解.html" rel="next" title="XSS、CSRF攻击问题详解">
+                <i class="fa fa-chevron-left"></i> XSS、CSRF攻击问题详解
               </a>
             
           </div>
@@ -555,10 +573,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/JS函数表达式（闭包）.html" rel="prev" title="JS函数表达式（闭包）">
-                JS函数表达式（闭包） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -765,7 +779,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS浮点数精度丢失的原因"><span class="nav-number">1.</span> <span class="nav-text">JS浮点数精度丢失的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的出错场合"><span class="nav-number">2.</span> <span class="nav-text">常见的出错场合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点数计算、比较："><span class="nav-number">2.1.</span> <span class="nav-text">浮点数计算、比较：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大整数计算、比较："><span class="nav-number">2.2.</span> <span class="nav-text">大整数计算、比较：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多位数字符数值转换："><span class="nav-number">2.3.</span> <span class="nav-text">多位数字符数值转换：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toFixed不会四舍五入："><span class="nav-number">2.4.</span> <span class="nav-text">toFixed不会四舍五入：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点数计算、比较：-1"><span class="nav-number">3.1.</span> <span class="nav-text">浮点数计算、比较：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多位数数值转换："><span class="nav-number">3.2.</span> <span class="nav-text">多位数数值转换：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toFix的修复："><span class="nav-number">3.3.</span> <span class="nav-text">toFix的修复：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式"><span class="nav-number">1.</span> <span class="nav-text">观察者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布-订阅模式"><span class="nav-number">2.</span> <span class="nav-text">发布/订阅模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-1"><span class="nav-number">2.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-1"><span class="nav-number">2.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种模式的区别"><span class="nav-number">3.</span> <span class="nav-text">两种模式的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue中的发布-订阅设计"><span class="nav-number">4.</span> <span class="nav-text">Vue中的发布/订阅设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据双向绑定"><span class="nav-number">4.1.</span> <span class="nav-text">数据双向绑定</span></a></li></ol></li></ol></div>
             
 
           </div>
