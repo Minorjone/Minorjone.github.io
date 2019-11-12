@@ -1,1 +1,1 @@
-http://dangoying.ink/观察者模式与发布订阅模式.html
+http://dangoying.ink/V8垃圾回收机制.html
