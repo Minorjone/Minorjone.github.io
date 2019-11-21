@@ -1,1 +1,1 @@
-http://dangoying.ink/V8垃圾回收机制.html
+http://dangoying.ink/浏览器缓存策略.html

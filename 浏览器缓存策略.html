@@ -96,18 +96,28 @@
 
 
 
-  <meta name="description" content="CSS布局中会用到很多百分比，但他们究竟都是如何计算的呢，你可能一个不小心就会把他们混淆在一起，所以这里就对CSS中所有可以用到百分比的属性做一个总结，方便更加系统的理解和记忆。">
-<meta name="keywords" content="前端,CSS,CSS3,百分比">
+  <meta name="description" content="开发的时候，我们常常会遇到因为缓存而导致页面修改没有及时展示的情况，这个时候我们不禁就会思考，为什么有时候页面缓存了，有时候页面没有缓存，究竟如何正确使用缓存，如何快速定位问题是否由缓存导致，本文我们就来深入理解下浏览器的缓存机制。">
+<meta name="keywords" content="前端,浏览器,缓存">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS中的百分比计算">
-<meta property="og:url" content="http://dangoying.ink/CSS中的百分比计算.html">
+<meta property="og:title" content="浏览器缓存策略">
+<meta property="og:url" content="http://dangoying.ink/浏览器缓存策略.html">
 <meta property="og:site_name" content="团子的代码作坊">
-<meta property="og:description" content="CSS布局中会用到很多百分比，但他们究竟都是如何计算的呢，你可能一个不小心就会把他们混淆在一起，所以这里就对CSS中所有可以用到百分比的属性做一个总结，方便更加系统的理解和记忆。">
+<meta property="og:description" content="开发的时候，我们常常会遇到因为缓存而导致页面修改没有及时展示的情况，这个时候我们不禁就会思考，为什么有时候页面缓存了，有时候页面没有缓存，究竟如何正确使用缓存，如何快速定位问题是否由缓存导致，本文我们就来深入理解下浏览器的缓存机制。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-27T15:12:49.210Z">
+<meta property="og:image" content="http://dangoying.ink/assets/20191120/1.jpg">
+<meta property="og:image" content="http://dangoying.ink/assets/20191120/2.jpg">
+<meta property="og:image" content="http://dangoying.ink/assets/20191120/3.jpg">
+<meta property="og:image" content="http://dangoying.ink/assets/20191120/4.jpg">
+<meta property="og:image" content="http://dangoying.ink/assets/20191120/5.jpg">
+<meta property="og:image" content="http://dangoying.ink/assets/20191120/6.jpg">
+<meta property="og:image" content="http://dangoying.ink/assets/20191120/7.jpg">
+<meta property="og:image" content="http://dangoying.ink/assets/20191120/8.jpg">
+<meta property="og:image" content="http://dangoying.ink/assets/20191120/9.jpg">
+<meta property="og:updated_time" content="2019-11-21T07:41:19.242Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS中的百分比计算">
-<meta name="twitter:description" content="CSS布局中会用到很多百分比，但他们究竟都是如何计算的呢，你可能一个不小心就会把他们混淆在一起，所以这里就对CSS中所有可以用到百分比的属性做一个总结，方便更加系统的理解和记忆。">
+<meta name="twitter:title" content="浏览器缓存策略">
+<meta name="twitter:description" content="开发的时候，我们常常会遇到因为缓存而导致页面修改没有及时展示的情况，这个时候我们不禁就会思考，为什么有时候页面缓存了，有时候页面没有缓存，究竟如何正确使用缓存，如何快速定位问题是否由缓存导致，本文我们就来深入理解下浏览器的缓存机制。">
+<meta name="twitter:image" content="http://dangoying.ink/assets/20191120/1.jpg">
 
 
 
@@ -116,7 +126,7 @@
 
 
 
-  <link rel="canonical" href="http://dangoying.ink/CSS中的百分比计算.html">
+  <link rel="canonical" href="http://dangoying.ink/浏览器缓存策略.html">
 
 
 
@@ -126,7 +136,7 @@
   };
 </script>
 
-  <title>CSS中的百分比计算 | 团子的代码作坊</title>
+  <title>浏览器缓存策略 | 团子的代码作坊</title>
   
 
 
@@ -364,7 +374,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dangoying.ink/CSS中的百分比计算.html">
+    <link itemprop="mainEntityOfPage" href="http://dangoying.ink/浏览器缓存策略.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dango">
@@ -381,7 +391,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CSS中的百分比计算
+          <h1 class="post-title" itemprop="name headline">浏览器缓存策略
 
               
             
@@ -407,7 +417,7 @@
                 
               
 
-              <time title="创建时间：2019-08-27 22:10:30" itemprop="dateCreated datePublished" datetime="2019-08-27T22:10:30+08:00">2019-08-27</time>
+              <time title="创建时间：2019-11-19 17:12:15" itemprop="dateCreated datePublished" datetime="2019-11-19T17:12:15+08:00">2019-11-19</time>
             
 
             
@@ -443,8 +453,8 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
             
-                <a href="/CSS中的百分比计算.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/CSS中的百分比计算.html" itemprop="commentCount"></span>
+                <a href="/浏览器缓存策略.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/浏览器缓存策略.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -452,7 +462,7 @@
 
           
           
-            <span id="/CSS中的百分比计算.html" class="leancloud_visitors" data-flag-title="CSS中的百分比计算">
+            <span id="/浏览器缓存策略.html" class="leancloud_visitors" data-flag-title="浏览器缓存策略">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -483,33 +493,119 @@
       
 
       
-        <p>CSS布局中会用到很多百分比，但他们究竟都是如何计算的呢，你可能一个不小心就会把他们混淆在一起，所以这里就对CSS中所有可以用到百分比的属性做一个总结，方便更加系统的理解和记忆。</p>
+        <p>开发的时候，我们常常会遇到因为缓存而导致页面修改没有及时展示的情况，这个时候我们不禁就会思考，为什么有时候页面缓存了，有时候页面没有缓存，究竟如何正确使用缓存，如何快速定位问题是否由缓存导致，本文我们就来深入理解下浏览器的缓存机制。</p>
 <a id="more"></a>
-<h2 id="font-size"><a href="#font-size" class="headerlink" title="font-size"></a>font-size</h2><p>根据元素字体大小，当前大小为100%</p>
-<h2 id="line-height"><a href="#line-height" class="headerlink" title="line-height"></a>line-height</h2><p>根据元素字体大小，当前大小为100%</p>
-<h2 id="translate"><a href="#translate" class="headerlink" title="translate"></a>translate</h2><p>根据元素大小，当前大小为100%</p>
-<h2 id="width"><a href="#width" class="headerlink" title="width"></a>width</h2><ul>
-<li>正常文档流和浮动：百分比相对于父元素content-box</li>
-<li>绝对定位：百分比相对于父元素padding-box</li>
+<h2 id="缓存简介"><a href="#缓存简介" class="headerlink" title="缓存简介"></a>缓存简介</h2><p>所谓缓存，就是浏览器将一些资源存放在用户磁盘或内存中的行为。根据缓存存放的位置不同，可以将缓存分为 <code>内存缓存</code> 和 <code>硬盘缓存</code>, 根据缓存的策略不同，可以分为 <code>强制缓存</code> 和 <code>协商缓存</code>。</p>
+<p>浏览器与服务器通信的方式为应答模式，即是：浏览器发起HTTP请求 – 服务器响应该请求。那么浏览器第一次向服务器发起该请求后拿到请求结果，会根据响应报文中HTTP头的缓存标识，决定是否缓存结果，是则将请求结果和缓存标识存入浏览器缓存中，简单的过程如下图<br><img src="../assets/20191120/1.jpg" alt="Alt text"></p>
+<ul>
+<li>浏览器发起请求，检查缓存中是否含有所需资源和缓存标识</li>
+<li>当没有需要的缓存资源，则向服务器发起请求</li>
+<li>服务器返回资源</li>
+<li>浏览器根据缓存标识决定是否需要将资源保存在缓存中</li>
 </ul>
-<h2 id="height"><a href="#height" class="headerlink" title="height"></a>height</h2><ul>
-<li>正常文档流和浮动：百分比相对于父元素content-box</li>
-<li>绝对定位：百分比相对于父元素padding-box</li>
-<li>当父元素高度为auto：子元素高度百分比会被忽略</li>
+<p>下面我们先来看看 <code>内存缓存</code> 和 <code>硬盘缓存</code>。</p>
+<h2 id="内存缓存-硬盘缓存"><a href="#内存缓存-硬盘缓存" class="headerlink" title="内存缓存/硬盘缓存"></a>内存缓存/硬盘缓存</h2><h3 id="内存缓存-from-memory-cache"><a href="#内存缓存-from-memory-cache" class="headerlink" title="内存缓存(from memory cache)"></a>内存缓存(from memory cache)</h3><p>内存缓存具有两个特点，分别是快速读取和时效性：</p>
+<ul>
+<li>快速读取：内存缓存会将编译解析后的文件，直接存入该进程的内存中，占据该进程一定的内存资源，以方便下次运行使用时的快速读取。</li>
+<li>时效性：一旦该进程关闭，则该进程的内存则会清空。</li>
 </ul>
-<h2 id="margin"><a href="#margin" class="headerlink" title="margin"></a>margin</h2><ul>
-<li>正常文档流和浮动：百分比相对于父元素的content-box宽度</li>
-<li>绝对定位：百分比相对于父元素的padding-box宽度</li>
+<h3 id="硬盘缓存-from-disk-cache"><a href="#硬盘缓存-from-disk-cache" class="headerlink" title="硬盘缓存(from disk cache)"></a>硬盘缓存(from disk cache)</h3><p>硬盘缓存则是直接将缓存写入硬盘文件中，读取缓存需要对该缓存存放的硬盘文件进行I/O操作，然后重新解析该缓存内容，读取复杂，速度比内存缓存慢。</p>
+<h3 id="两者比较"><a href="#两者比较" class="headerlink" title="两者比较"></a>两者比较</h3><p><img src="../assets/20191120/2.jpg" alt="Alt text"></p>
+<p>浏览器读取命中强缓存资源的顺序为memory –&gt; disk：</p>
+<ul>
+<li>先去内存看，如果有，直接加载；</li>
+<li>如果内存没有，则取硬盘获取，如果有直接加载；</li>
+<li>如果硬盘也没有，那么就进行网络请求；</li>
+<li>加载到的资源缓存到硬盘和内存。</li>
 </ul>
-<h2 id="padding"><a href="#padding" class="headerlink" title="padding"></a>padding</h2><ul>
-<li>正常文档流和浮动：百分比相对于父元素的content-box宽度</li>
-<li>绝对定位：百分比相对于父元素的padding-box宽度</li>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">时效性</th>
+<th style="text-align:center">容量</th>
+<th style="text-align:left">存放内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">内存缓存</td>
+<td style="text-align:center">进程关闭，内存清空</td>
+<td style="text-align:center">小</td>
+<td style="text-align:left">脚本、字体、图片等</td>
+</tr>
+<tr>
+<td style="text-align:center">硬盘缓存</td>
+<td style="text-align:center">时效长</td>
+<td style="text-align:center">大</td>
+<td style="text-align:left">CSS等</td>
+</tr>
+</tbody>
+</table>
+<p>由上可以看出内存缓存中大多存放JS、图片等资源，而硬盘缓存中大多存放CSS资源以及容量较大的资源，这是因为：</p>
+<ul>
+<li>CSS样式加载一次即可渲染出网页。</li>
+<li>脚本可能随时会执行，如果脚本在磁盘当中，在执行该脚本需要从磁盘中取到内存当中来。这样的IO开销是比较大的，有可能会导致浏览器失去响应。</li>
 </ul>
-<h2 id="top-bottom-left-right"><a href="#top-bottom-left-right" class="headerlink" title="top/bottom/left/right"></a>top/bottom/left/right</h2><ul>
-<li>非定位元素：无效果</li>
-<li>相对定位： top和bottom百分比是相对父元素的content-box高度，left和right百分比是相对父元素的content-box宽度</li>
-<li>绝对定位：top和bottom百分比是相对最近一级非static定位父元素的padding-box高度，left和right百分比是相对最近一级非static定位父元素的padding-box宽度</li>
+<h2 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h2><p>强制缓存就是向浏览器缓存查找该请求结果，并根据该结果的缓存规则来决定是否使用该缓存结果的过程。</p>
+<h3 id="三种情况"><a href="#三种情况" class="headerlink" title="三种情况"></a>三种情况</h3><ul>
+<li>不存在该缓存结果和缓存标识，强制缓存失效，则直接向服务器发起请求（跟第一次发起请求一致），如下图</li>
 </ul>
+<p><img src="../assets/20191120/3.jpg" alt="Alt text"></p>
+<ul>
+<li>存在该缓存结果和缓存标识，但该结果已失效，强制缓存失效，则使用协商缓存(暂不分析)，如下图</li>
+</ul>
+<p><img src="../assets/20191120/4.jpg" alt="Alt text"></p>
+<ul>
+<li>存在该缓存结果和缓存标识，且该结果尚未失效，强制缓存生效，直接返回该结果，如下图</li>
+</ul>
+<p><img src="../assets/20191120/5.jpg" alt="Alt text"></p>
+<h3 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h3><p>Expires是HTTP/1.0控制网页缓存的字段，其值为服务器返回该请求结果缓存的到期时间，即再次发起该请求时，如果客户端的时间小于Expires的值时，直接使用缓存结果。<br>到了HTTP/1.1，Expire已经被Cache-Control替代，原因在于Expires控制缓存的原理是使用客户端的时间与服务端返回的时间做对比，那么如果客户端与服务端的时间因为某些原因（例如时区不同；客户端和服务端有一方的时间不准确）发生误差，那么强制缓存则会直接失效，这样的话强制缓存的存在则毫无意义。</p>
+<h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><p>在HTTP/1.1中，Cache-Control是最重要的规则，主要用于控制网页缓存，主要取值为：</p>
+<ul>
+<li>public：所有内容都将被缓存（客户端和代理服务器都可缓存）</li>
+<li>private：所有内容只有客户端可以缓存，Cache-Control的默认取值</li>
+<li>no-cache：客户端缓存内容，但是是否使用缓存则需要经过协商缓存来验证决定</li>
+<li>no-store：所有内容都不会被缓存，即不使用强制缓存，也不使用协商缓存</li>
+<li>max-age=xxx (xxx is numeric)：缓存内容将在xxx秒后失效</li>
+</ul>
+<p><img src="../assets/20191120/6.jpg" alt="Alt text"></p>
+<p>Cache-Control的优先级高于Expires，Cache-Control的是相对值，而Expires是绝对值，在不确客户端和服务端时间是否一致的情况下，推荐优先使用Cache-Control。</p>
+<h2 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h2><p>协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程。</p>
+<h3 id="两种情况"><a href="#两种情况" class="headerlink" title="两种情况"></a>两种情况</h3><ul>
+<li>协商缓存生效，返回304，如下</li>
+</ul>
+<p><img src="../assets/20191120/7.jpg" alt="Alt text"></p>
+<ul>
+<li>协商缓存失效，返回200和请求结果结果，如下</li>
+</ul>
+<p><img src="../assets/20191120/8.jpg" alt="Alt text"></p>
+<h3 id="Last-Modified-If-Modified-Since"><a href="#Last-Modified-If-Modified-Since" class="headerlink" title="Last-Modified / If-Modified-Since"></a>Last-Modified / If-Modified-Since</h3><ul>
+<li>Last-Modified：是服务器响应请求时，返回该资源文件在服务器最后被修改的时间</li>
+<li>If-Modified-Since：则是客户端再次发起该请求时，携带上次请求返回的Last-Modified值，通过此字段值告诉服务器该资源上次请求返回的最后被修改时间。服务器收到该请求，发现请求头含有If-Modified-Since字段，则会根据If-Modified-Since的字段值与该资源在服务器的最后被修改时间做对比，若服务器的资源最后被修改时间大于If-Modified-Since的字段值，则重新返回资源，状态码为200；否则则返回304，代表资源无更新，可继续使用缓存文件</li>
+</ul>
+<h3 id="Etag-If-None-Match"><a href="#Etag-If-None-Match" class="headerlink" title="Etag / If-None-Match"></a>Etag / If-None-Match</h3><ul>
+<li>Etag：是服务器响应请求时，返回当前资源文件的一个唯一标识(由服务器生成)</li>
+<li>If-None-Match：是客户端再次发起该请求时，携带上次请求返回的唯一标识Etag值，通过此字段值告诉服务器该资源上次请求返回的唯一标识值。服务器收到该请求后，发现该请求头中含有If-None-Match，则会根据If-None-Match的字段值与该资源在服务器的Etag值做对比，一致则返回304，代表资源无更新，继续使用缓存文件；不一致则重新返回资源文件，状态码为200</li>
+</ul>
+<p>Etag / If-None-Match优先级高于Last-Modified / If-Modified-Since，同时存在则只有Etag / If-None-Match生效。</p>
+<h2 id="完整缓存流程"><a href="#完整缓存流程" class="headerlink" title="完整缓存流程"></a>完整缓存流程</h2><p><img src="../assets/20191120/9.jpg" alt="Alt text"></p>
+<ul>
+<li>请求访问缓存</li>
+<li>若存在Expires和Cache-Control，则进行强制缓存</li>
+<li>若存在Etag / If-None-Match，则进行协商缓存</li>
+<li>若存在Last-Modified / If-Modified-Since，则进行协商缓存</li>
+<li>若不存在缓存标识，则向服务器请求资源，并将返回资源及缓存标志放入缓存中</li>
+</ul>
+<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><p>了解了缓存机制，我们就来看看缓存能用来做什么。<br>在我们网页开发过程中，为了实现各种交互功能和页面的美化，我们会引入不少资源，但是在反复加载的过程中，如果我们不断向服务器去请求这些资源，会降低网站的性能，尤其当这些资源的容量较大时，这一性能缺陷就会更为明显，所以我们可以利用设置缓存标志，将那些不常更新，容量较大的资源保存在缓存里，加快网站的再次渲染。</p>
+<ul>
+<li>在服务器设置Etag / If-None-Match或Last-Modified / If-Modified-Since，采用协商缓存，可以减少从服务器返回资源的次数，但还是需要多次请求访问服务端</li>
+<li>在服务器设置Expires或Cache-Control，直接从缓存中获取资源，更大提升了性能</li>
+</ul>
+<p>以上就是有关缓存机制的全部内容，有理解不到位的地方，欢迎各位大佬指正。</p>
+<blockquote>
+<p>参考链接：<br><a href="https://heyingye.github.io/2018/04/16/%E5%BD%BB%E5%BA%95%E7%90%86%E8%A7%A3%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" target="_blank" rel="noopener">彻底理解浏览器的缓存机制</a><br><a href="https://www.jianshu.com/p/f331d5f0b979" target="_blank" rel="noopener">前端性能优化-HTTP添加Expires头</a></p>
+</blockquote>
 
       
     </div>
@@ -535,8 +631,6 @@
           
             <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
           
-            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
-          
         </div>
       
 
@@ -548,8 +642,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/HTML5知识点.html" rel="next" title="HTML5知识点">
-                <i class="fa fa-chevron-left"></i> HTML5知识点
+              <a href="/V8垃圾回收机制.html" rel="next" title="V8垃圾回收机制">
+                <i class="fa fa-chevron-left"></i> V8垃圾回收机制
               </a>
             
           </div>
@@ -557,10 +651,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/SASS-LESS-Stylus哪家强.html" rel="prev" title="SASS,LESS,Stylus哪家强">
-                SASS,LESS,Stylus哪家强 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -767,7 +857,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#font-size"><span class="nav-number">1.</span> <span class="nav-text">font-size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#line-height"><span class="nav-number">2.</span> <span class="nav-text">line-height</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#translate"><span class="nav-number">3.</span> <span class="nav-text">translate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#width"><span class="nav-number">4.</span> <span class="nav-text">width</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#height"><span class="nav-number">5.</span> <span class="nav-text">height</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#margin"><span class="nav-number">6.</span> <span class="nav-text">margin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#padding"><span class="nav-number">7.</span> <span class="nav-text">padding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#top-bottom-left-right"><span class="nav-number">8.</span> <span class="nav-text">top/bottom/left/right</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存简介"><span class="nav-number">1.</span> <span class="nav-text">缓存简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存缓存-硬盘缓存"><span class="nav-number">2.</span> <span class="nav-text">内存缓存/硬盘缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存缓存-from-memory-cache"><span class="nav-number">2.1.</span> <span class="nav-text">内存缓存(from memory cache)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#硬盘缓存-from-disk-cache"><span class="nav-number">2.2.</span> <span class="nav-text">硬盘缓存(from disk cache)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两者比较"><span class="nav-number">2.3.</span> <span class="nav-text">两者比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强制缓存"><span class="nav-number">3.</span> <span class="nav-text">强制缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三种情况"><span class="nav-number">3.1.</span> <span class="nav-text">三种情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expires"><span class="nav-number">3.2.</span> <span class="nav-text">Expires</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Control"><span class="nav-number">3.3.</span> <span class="nav-text">Cache-Control</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协商缓存"><span class="nav-number">4.</span> <span class="nav-text">协商缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#两种情况"><span class="nav-number">4.1.</span> <span class="nav-text">两种情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Last-Modified-If-Modified-Since"><span class="nav-number">4.2.</span> <span class="nav-text">Last-Modified / If-Modified-Since</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Etag-If-None-Match"><span class="nav-number">4.3.</span> <span class="nav-text">Etag / If-None-Match</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整缓存流程"><span class="nav-number">5.</span> <span class="nav-text">完整缓存流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际应用"><span class="nav-number">6.</span> <span class="nav-text">实际应用</span></a></li></ol></div>
             
 
           </div>
