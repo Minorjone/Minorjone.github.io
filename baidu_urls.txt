@@ -1,1 +1,1 @@
-http://dangoying.ink/浏览器缓存策略.html
+http://dangoying.ink/JS事件冒泡和事件委托.html

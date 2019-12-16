@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'RAEGHV9C55',
+      apiKey: '786548c432d905298e9946dd4dd863f4',
+      indexName: 'hexo',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="最近在学习React的时候，看到了React实现合成事件的底层机制，事件委托一词赫然出现在眼前，于是我不由的想到在不久前的一次面试中，面试官曾让我写一个冒泡阶段的事件委托，今天借着对React的理解，再来深入探讨一下JS中的事件冒泡和事件委托。">
+<meta name="keywords" content="前端,JS,事件,事件冒泡，事件委托">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS事件冒泡和事件委托">
+<meta property="og:url" content="http://dangoying.ink/JS事件冒泡和事件委托.html">
+<meta property="og:site_name" content="团子的代码作坊">
+<meta property="og:description" content="最近在学习React的时候，看到了React实现合成事件的底层机制，事件委托一词赫然出现在眼前，于是我不由的想到在不久前的一次面试中，面试官曾让我写一个冒泡阶段的事件委托，今天借着对React的理解，再来深入探讨一下JS中的事件冒泡和事件委托。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://dangoying.ink/assets/20191215/1.png">
+<meta property="og:updated_time" content="2019-12-16T15:07:44.315Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS事件冒泡和事件委托">
+<meta name="twitter:description" content="最近在学习React的时候，看到了React实现合成事件的底层机制，事件委托一词赫然出现在眼前，于是我不由的想到在不久前的一次面试中，面试官曾让我写一个冒泡阶段的事件委托，今天借着对React的理解，再来深入探讨一下JS中的事件冒泡和事件委托。">
+<meta name="twitter:image" content="http://dangoying.ink/assets/20191215/1.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="团子的代码作坊" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://dangoying.ink/JS事件冒泡和事件委托.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JS事件冒泡和事件委托 | 团子的代码作坊</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">团子的代码作坊</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">心有猛兽、细嗅蔷薇</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dangoying.ink/JS事件冒泡和事件委托.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dango">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/assets/blogImg/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="团子的代码作坊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS事件冒泡和事件委托
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-15 17:25:59" itemprop="dateCreated datePublished" datetime="2019-12-15T17:25:59+08:00">2019-12-15</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <a href="/JS事件冒泡和事件委托.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/JS事件冒泡和事件委托.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/JS事件冒泡和事件委托.html" class="leancloud_visitors" data-flag-title="JS事件冒泡和事件委托">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在学习React的时候，看到了React实现合成事件的底层机制，事件委托一词赫然出现在眼前，于是我不由的想到在不久前的一次面试中，面试官曾让我写一个冒泡阶段的事件委托，今天借着对React的理解，再来深入探讨一下JS中的事件冒泡和事件委托。</p>
+<a id="more"></a>
+<h2 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h2><p>“DOM2级事件”规定的事件流包括三个阶段：事件捕获阶段，处于目标阶段和事件冒泡阶段。<br><img src="../assets/20191215/1.png" alt="Alt text"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">阶段</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:center">传播方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">事件捕获</td>
+<td style="text-align:left">不太具体的节点应该更早接收到事件，而具体的节点应该最后接收到事件</td>
+<td style="text-align:center">DOM树依次向下</td>
+</tr>
+<tr>
+<td style="text-align:center">事件冒泡</td>
+<td style="text-align:left">由最具体的元素开始接收，逐级向上传播到较为不具体的节点</td>
+<td style="text-align:center">DOM树向上</td>
+</tr>
+</tbody>
+</table>
+<p>在DOM2级事件处理程序操作 <code>addEventListener()</code> 和 <code>removeEventListener()</code> 方法中，其第三个参数接收一个布尔值，用于指定事件处理程序在何时进行。</p>
+<ul>
+<li>值为true：表示在捕获阶段调用事件处理程序</li>
+<li>值为false：表示在冒泡阶段调用事件处理程序</li>
+</ul>
+<p>这里是我们处在level菜鸟阶段最先接触到有关事件冒泡和事件捕获的方法了，但是由于事件捕获在浏览器的兼容情况并不乐观，所以大多数情况我们不建议在事件捕获阶段注册事件处理程序。</p>
+<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h2><p>在正式开始介绍事件委托之前，我们先来了解一下事件对象。</p>
+<blockquote>
+<p>触发DOM上的某个事件时，会产生一个事件对象event，这个对象中包含着所有与事件有关的信息。</p>
+</blockquote>
+<p>这是红宝书里对事件对象的解释，下表列出了事件对象的部分属性和方法 。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性 / 方法</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">读 / 写</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">只读</td>
+<td style="text-align:left">被触发的事件的类型</td>
+</tr>
+<tr>
+<td style="text-align:center">target</td>
+<td style="text-align:center">Element</td>
+<td style="text-align:center">只读</td>
+<td style="text-align:left">事件的目标</td>
+</tr>
+<tr>
+<td style="text-align:center">currentTarget</td>
+<td style="text-align:center">Element</td>
+<td style="text-align:center">只读</td>
+<td style="text-align:left">其事件处理程序当前正在处理事件的那个元素</td>
+</tr>
+<tr>
+<td style="text-align:center">preventDefault()</td>
+<td style="text-align:center">Function</td>
+<td style="text-align:center">只读</td>
+<td style="text-align:left">取消事件的默认行为</td>
+</tr>
+<tr>
+<td style="text-align:center">stopPropagation</td>
+<td style="text-align:center">Function</td>
+<td style="text-align:center">只读</td>
+<td style="text-align:left">取消事件的进一步捕获或冒泡</td>
+</tr>
+<tr>
+<td style="text-align:center">stopImmediatePropagation</td>
+<td style="text-align:center">Function</td>
+<td style="text-align:center">只读</td>
+<td style="text-align:left">取消事件的进一步捕获或冒泡，同时阻止任何事件处理程序被调用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="target-和-currentTarget"><a href="#target-和-currentTarget" class="headerlink" title="target 和 currentTarget"></a>target 和 currentTarget</h3><p>在事件处理程序内部，对象this始终等于currentTarget的值，而target则只包含事件的实际目标。</p>
+<ul>
+<li>当事件处理程序直接指定给了目标元素，this、currentTarget、target包含相同的值。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var btn = document.getElementById(&quot;myBtn&quot;);</span><br><span class="line">btn.onclick = function(e) &#123;</span><br><span class="line">  console.log(e.currentTarget === this); //true</span><br><span class="line">  console.log(e.target === this); //true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当事件处理程序存在于按钮的父节点中，这三者的值不相同。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">document.body.onclick = function(e) &#123;</span><br><span class="line">  console.log(this === document.body); //true</span><br><span class="line">  console.log(e.currentTarget === document.body); //true</span><br><span class="line">  console.log(e.target === document.getElementById(&quot;myBtn&quot;)); //true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述例子中，click事件的真正目标是target的按钮元素，但由于没有在按钮元素上注册事件处理程序，所以click事件一只冒泡到了document.body后才被处理。</p>
+<p>由上，我们可以得出更通俗的对target 和 currentTarget的解释。</p>
+<ul>
+<li>target：当前被点击的实际元素</li>
+<li>currentTarget：注册了事件处理程序的元素</li>
+</ul>
+<h3 id="peventDefault"><a href="#peventDefault" class="headerlink" title="peventDefault()"></a>peventDefault()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var link = document.getElementById(&quot;myLink&quot;);</span><br><span class="line">link.onclick = function(e) &#123;</span><br><span class="line">  e.preventDefault();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述例子阻止了链接默认跳转到其href指定的URL。</p>
+<h4 id="FastClick原理"><a href="#FastClick原理" class="headerlink" title="FastClick原理"></a>FastClick原理</h4><p>说到阻止事件默认行为，不得不提移动端常用的FastClick。其实现原理是这样的：</p>
+<ul>
+<li>注册业务onclick事件</li>
+<li>在touchend阻止默认事件（屏蔽之后的click事件）</li>
+<li>合成一个click事件，并立即执行</li>
+<li>执行业务自己的click事件</li>
+</ul>
+<p>下面可以看一个模拟FastClick的代码案例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 业务代码</span><br><span class="line">var $test = document.getElementById(&apos;test&apos;)</span><br><span class="line">$test.addEventListener(&apos;click&apos;, function () &#123;</span><br><span class="line">  console.log(&apos;1 click&apos;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// FastClick简单实现</span><br><span class="line">var targetElement = null</span><br><span class="line">document.body.addEventListener(&apos;touchstart&apos;, function () &#123;</span><br><span class="line">  // 记录点击的元素</span><br><span class="line">  targetElement = event.target</span><br><span class="line">&#125;)</span><br><span class="line">document.body.addEventListener(&apos;touchend&apos;, function (event) &#123;</span><br><span class="line">  // 阻止默认事件（屏蔽之后的click事件）</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  var touch = event.changedTouches[0]</span><br><span class="line">  // 合成click事件，并添加可跟踪属性forwardedTouchEvent</span><br><span class="line">  var clickEvent = document.createEvent(&apos;MouseEvents&apos;)</span><br><span class="line">  clickEvent.initMouseEvent(&apos;click&apos;, true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null)</span><br><span class="line">  clickEvent.forwardedTouchEvent = true // 自定义的</span><br><span class="line">  targetElement.dispatchEvent(clickEvent)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="stopPropagation-和-stopImmediatePropagation"><a href="#stopPropagation-和-stopImmediatePropagation" class="headerlink" title="stopPropagation 和 stopImmediatePropagation"></a>stopPropagation 和 stopImmediatePropagation</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var btn = document.getElementById(&quot;myBtn&quot;);</span><br><span class="line">btn.onclick = function(e) &#123;</span><br><span class="line">  alert(&quot;Clicked&quot;);</span><br><span class="line">  e.stopPropagation();</span><br><span class="line">&#125;</span><br><span class="line">document.body.onclick = function(e) &#123;</span><br><span class="line">  alert(&quot;Body clicked&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述例子，在点击事件在目标元素上被执行后就阻止了冒泡，防止其传播到body。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var btn = document.getElementById(&quot;myBtn&quot;);</span><br><span class="line">btn.addEventListener(&quot;click&quot;, function(e) &#123;</span><br><span class="line">  alert(&quot;Clicked before&quot;);</span><br><span class="line">  e.stopImmediatePropagation();</span><br><span class="line">&#125;, false);</span><br><span class="line">btn.addEventListener(&quot;click&quot;, function(e) &#123;</span><br><span class="line">  alert(&quot;Clicked after&quot;);</span><br><span class="line">&#125;, false);</span><br><span class="line">document.body.addEventListener(&quot;click&quot;, function(e) &#123;</span><br><span class="line">  alert(&quot;Body clicked&quot;);</span><br><span class="line">&#125;, false);</span><br></pre></td></tr></table></figure>
+<p>在上述例子中，使用了stopImmediatePropagation阻止冒泡，绑定在该按钮上的同类事件，没有执行完的也将被阻止。</p>
+<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><p>事件委托利用了事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。例如，click事件会一直冒泡到document层次，也就是是说我们可以为整个页面指定一个onclick事件处理程序，而不必给每个可单击元素分别添加事件处理程序。<br>现在我们回到那个面试题，来写一个事件委托的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param type：String，事件类型</span><br><span class="line"> * @param element：DOM element，目标元素</span><br><span class="line"> * @param callback：Function，业务事件处理程序</span><br><span class="line">*/ </span><br><span class="line">function eventHandler(type, element, callback) &#123;</span><br><span class="line">  document.addEventListener(type, function(e)&#123;</span><br><span class="line">    if(e.target === element) &#123;</span><br><span class="line">      callback.call(this);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="React-合成事件的实现原理"><a href="#React-合成事件的实现原理" class="headerlink" title="React 合成事件的实现原理"></a>React 合成事件的实现原理</h3><p>React 合成事件是把所有事件绑定到结构的最外层，使用一个统一的事件监听器，以队列的方式，从触发事件的组件向父组件回溯，调用它们在JSX中声明的callback。<br>其中涉及到几个重要的类如下：</p>
+<ul>
+<li>ReactEventListener：负责事件注册和事件分发。React将DOM事件全都注册到document这个节点上。事件分发主要调用dispatchEvent进行，从事件触发组件开始，向父元素遍历。</li>
+<li>ReactEventEmitter：负责每个组件上事件的执行。</li>
+<li>EventPluginHub：负责事件的存储，合成事件以对象池的方式实现创建和销毁，大大提高了性能。</li>
+<li>SimpleEventPlugin等plugin：根据不同的事件类型，构造不同的合成事件。如focus对应的React合成事件为SyntheticFocusEvent</li>
+</ul>
+<h4 id="事件注册"><a href="#事件注册" class="headerlink" title="事件注册"></a>事件注册</h4><p>组件创建和更新的入口方法mountComponent和updateComponent都会调用_updateDOMProperties方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">_updateDOMProperties: function (lastProps, nextProps, transaction) &#123;</span><br><span class="line">    ... // 前面代码太长，省略一部分</span><br><span class="line">    else if (registrationNameModules.hasOwnProperty(propKey)) &#123;</span><br><span class="line">        // 如果是props这个对象直接声明的属性，而不是从原型链中继承而来的，则处理它</span><br><span class="line">        // nextProp表示要创建或者更新的属性，而lastProp则表示上一次的属性</span><br><span class="line">        // 对于mountComponent，lastProp为null。updateComponent二者都不为null。unmountComponent则nextProp为null</span><br><span class="line">        if (nextProp) &#123;</span><br><span class="line">          // mountComponent和updateComponent中，enqueuePutListener注册事件</span><br><span class="line">          enqueuePutListener(this, propKey, nextProp, transaction);</span><br><span class="line">        &#125; else if (lastProp) &#123;</span><br><span class="line">          // unmountComponent中，删除注册的listener，防止内存泄漏</span><br><span class="line">          deleteListener(this, propKey);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下面我们来看enqueuePutListener，它负责注册JSX中声明的事件。源码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/ inst: React Component对象</span><br><span class="line">// registrationName: React合成事件名，如onClick</span><br><span class="line">// listener: React事件回调方法，如onClick=callback中的callback</span><br><span class="line">// transaction: mountComponent或updateComponent所处的事务流中，React都是基于事务流的</span><br><span class="line">function enqueuePutListener(inst, registrationName, listener, transaction) &#123;</span><br><span class="line">  if (transaction instanceof ReactServerRenderingTransaction) &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  var containerInfo = inst._hostContainerInfo;</span><br><span class="line">  var isDocumentFragment = containerInfo._node &amp;&amp; containerInfo._node.nodeType === DOC_FRAGMENT_TYPE;</span><br><span class="line">  // 找到document</span><br><span class="line">  var doc = isDocumentFragment ? containerInfo._node : containerInfo._ownerDocument;</span><br><span class="line">  // 注册事件，将事件注册到document上</span><br><span class="line">  listenTo(registrationName, doc);</span><br><span class="line">  // 存储事件,放入事务队列中</span><br><span class="line">  transaction.getReactMountReady().enqueue(putListener, &#123;</span><br><span class="line">    inst: inst,</span><br><span class="line">    registrationName: registrationName,</span><br><span class="line">    listener: listener</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>enqueuePutListener方法主要做了两件事，一是将JSX声明的事件注册到document元素上，一是将事件存储放入事务队列，以供事件触发时回调。<br>listenTo代码虽然比较长，但逻辑很简单，调用trapCapturedEvent和trapBubbledEvent来注册捕获和冒泡事件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">trapBubbledEvent: function (topLevelType, handlerBaseName, element) &#123;</span><br><span class="line">    if (!element) &#123;</span><br><span class="line">      return null;</span><br><span class="line">    &#125;</span><br><span class="line">    return EventListener.listen(</span><br><span class="line">      element,   // 绑定到的DOM目标,也就是document</span><br><span class="line">      handlerBaseName,   // eventType</span><br><span class="line">      ReactEventListener.dispatchEvent.bind(null, topLevelType));  // callback, document上的原生事件触发后回调</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  listen: function listen(target, eventType, callback) &#123;</span><br><span class="line">    if (target.addEventListener) &#123;</span><br><span class="line">      // 将原生事件添加到target这个dom上,也就是document上。</span><br><span class="line">      // 这就是只有document这个DOM节点上有原生事件的原因</span><br><span class="line">      target.addEventListener(eventType, callback, false);</span><br><span class="line">      return &#123;</span><br><span class="line">        // 删除事件,这个由React自己回调,不需要调用者来销毁。但仅仅对于React合成事件才行</span><br><span class="line">        remove: function remove() &#123;</span><br><span class="line">          target.removeEventListener(eventType, callback, false);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125; else if (target.attachEvent) &#123;</span><br><span class="line">      // attach和detach的方式</span><br><span class="line">      target.attachEvent(&apos;on&apos; + eventType, callback);</span><br><span class="line">      return &#123;</span><br><span class="line">        remove: function remove() &#123;</span><br><span class="line">          target.detachEvent(&apos;on&apos; + eventType, callback);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在listen方法中，我们终于发现了熟悉的addEventListener这个原生事件注册方法。只有document节点才会调用这个方法，故仅仅只有document节点上才有DOM事件。这大大简化了DOM事件逻辑，也节约了内存。</p>
+<p>有关事件存储的过程我们就不是我们本文的重点，就跳过，有兴趣的可以去看一下参考链接中的文章。</p>
+<h4 id="事件执行"><a href="#事件执行" class="headerlink" title="事件执行"></a>事件执行</h4><p>在trapBubbledEvent中，我们看到listen最后执行的回调函数是dispatchEvent，这个方法就是React执行事件分发的入口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// topLevelType：带top的事件名，如topClick。不用纠结为什么带一个top字段，知道它是事件名就OK了</span><br><span class="line">// nativeEvent: 用户触发click等事件时，浏览器传递的原生事件</span><br><span class="line">dispatchEvent: function (topLevelType, nativeEvent) &#123;</span><br><span class="line">    // disable了则直接不回调相关方法</span><br><span class="line">    if (!ReactEventListener._enabled) &#123;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var bookKeeping = TopLevelCallbackBookKeeping.getPooled(topLevelType, nativeEvent);</span><br><span class="line">    try &#123;</span><br><span class="line">      // 放入批处理队列中,React事件流也是一个消息队列的方式</span><br><span class="line">      ReactUpdates.batchedUpdates(handleTopLevelImpl, bookKeeping);</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">      TopLevelCallbackBookKeeping.release(bookKeeping);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可见我们仍然使用批处理的方式进行事件分发，handleTopLevelImpl才是事件分发的真正执行者，它是事件分发的核心，体现了React事件分发的特点。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// document进行事件分发,这样具体的React组件才能得到响应。因为DOM事件是绑定到document上的</span><br><span class="line">function handleTopLevelImpl(bookKeeping) &#123;</span><br><span class="line">  // 找到事件触发的DOM和React Component</span><br><span class="line">  var nativeEventTarget = getEventTarget(bookKeeping.nativeEvent);</span><br><span class="line">  var targetInst = ReactDOMComponentTree.getClosestInstanceFromNode(nativeEventTarget);</span><br><span class="line"></span><br><span class="line">  // 执行事件回调前,先由当前组件向上遍历它的所有父组件。得到ancestors这个数组。</span><br><span class="line">  // 因为事件回调中可能会改变Virtual DOM结构,所以要先遍历好组件层级</span><br><span class="line">  var ancestor = targetInst;</span><br><span class="line">  do &#123;</span><br><span class="line">    bookKeeping.ancestors.push(ancestor);</span><br><span class="line">    ancestor = ancestor &amp;&amp; findParent(ancestor);</span><br><span class="line">  &#125; while (ancestor);</span><br><span class="line"></span><br><span class="line">  // 从当前组件向父组件遍历,依次执行注册的回调方法. 我们遍历构造ancestors数组时,是从当前组件向父组件回溯的,故此处事件回调也是这个顺序</span><br><span class="line">  // 这个顺序就是冒泡的顺序,并且我们发现不能通过stopPropagation来阻止&apos;冒泡&apos;。</span><br><span class="line">  for (var i = 0; i &lt; bookKeeping.ancestors.length; i++) &#123;</span><br><span class="line">    targetInst = bookKeeping.ancestors[i];</span><br><span class="line">    ReactEventListener._handleTopLevel(bookKeeping.topLevelType, targetInst, bookKeeping.nativeEvent, getEventTarget(bookKeeping.nativeEvent));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>事件处理由_handleTopLevel完成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// React事件调用的入口。DOM事件绑定在了document原生对象上,每次事件触发,都会调用到handleTopLevel</span><br><span class="line">handleTopLevel: function (topLevelType, targetInst, nativeEvent, nativeEventTarget) &#123;</span><br><span class="line">  // 采用对象池的方式构造出合成事件。不同的eventType的合成事件可能不同</span><br><span class="line">  var events = EventPluginHub.extractEvents(topLevelType, targetInst, nativeEvent, nativeEventTarget);</span><br><span class="line">  // 批处理队列中的events</span><br><span class="line">  runEventQueueInBatch(events);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>React的合成事件机制还是比较复杂的，这里只是部分，但是也可是大致感受到它从自动委托到分发执行的过程，希望对大家理解有所帮助。</p>
+<blockquote>
+<p>参考链接：<a href="https://blog.csdn.net/u013510838/article/details/612247609" target="_blank" rel="noopener">React源码分析7 — React合成事件系统</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/JS/" rel="tag"><i class="fa fa-tag"></i> JS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/浏览器缓存策略.html" rel="next" title="浏览器缓存策略">
+                <i class="fa fa-chevron-left"></i> 浏览器缓存策略
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/assets/blogImg/avatar.png" alt="Dango">
+            
+              <p class="site-author-name" itemprop="name">Dango</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/minorjone" title="GitHub &rarr; https://github.com/minorjone" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:879275999@qq.com" title="E-Mail &rarr; mailto:879275999@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事件流"><span class="nav-number">1.</span> <span class="nav-text">事件流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件对象"><span class="nav-number">2.</span> <span class="nav-text">事件对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#target-和-currentTarget"><span class="nav-number">2.1.</span> <span class="nav-text">target 和 currentTarget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#peventDefault"><span class="nav-number">2.2.</span> <span class="nav-text">peventDefault()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FastClick原理"><span class="nav-number">2.2.1.</span> <span class="nav-text">FastClick原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stopPropagation-和-stopImmediatePropagation"><span class="nav-number">2.3.</span> <span class="nav-text">stopPropagation 和 stopImmediatePropagation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件委托"><span class="nav-number">3.</span> <span class="nav-text">事件委托</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#React-合成事件的实现原理"><span class="nav-number">3.1.</span> <span class="nav-text">React 合成事件的实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事件注册"><span class="nav-number">3.1.1.</span> <span class="nav-text">事件注册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件执行"><span class="nav-number">3.1.2.</span> <span class="nav-text">事件执行</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-anchor"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dango</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+<div class="copyright">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'BHfz5zxfsCYHnHXpWKpO5f38-gzGzoHsz',
+    appKey: 'LQI6U9bUcPXquDU0yEDFAu0U',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.7.0"></script>
+
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
