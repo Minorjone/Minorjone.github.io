@@ -1,1 +1,1 @@
-http://dangoying.ink/JS事件冒泡和事件委托.html
+http://dangoying.ink/前端两种路由实现和使用场景.html

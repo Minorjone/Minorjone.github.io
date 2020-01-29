@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'RAEGHV9C55',
+      apiKey: '786548c432d905298e9946dd4dd863f4',
+      indexName: 'hexo',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在学习vue-router时，了解到前端路由的两种模式，本文就前端路由，及其两种模式的原理和使用场景，做一个整理总结。">
+<meta name="keywords" content="前端,路由,原理,使用场景">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端两种路由实现和使用场景">
+<meta property="og:url" content="http://dangoying.ink/前端两种路由实现和使用场景.html">
+<meta property="og:site_name" content="团子的代码作坊">
+<meta property="og:description" content="在学习vue-router时，了解到前端路由的两种模式，本文就前端路由，及其两种模式的原理和使用场景，做一个整理总结。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-29T15:23:38.555Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端两种路由实现和使用场景">
+<meta name="twitter:description" content="在学习vue-router时，了解到前端路由的两种模式，本文就前端路由，及其两种模式的原理和使用场景，做一个整理总结。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="团子的代码作坊" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://dangoying.ink/前端两种路由实现和使用场景.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>前端两种路由实现和使用场景 | 团子的代码作坊</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">团子的代码作坊</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">心有猛兽、细嗅蔷薇</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dangoying.ink/前端两种路由实现和使用场景.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dango">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/assets/blogImg/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="团子的代码作坊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端两种路由实现和使用场景
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-06 10:17:09" itemprop="dateCreated datePublished" datetime="2020-01-06T10:17:09+08:00">2020-01-06</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <a href="/前端两种路由实现和使用场景.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/前端两种路由实现和使用场景.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/前端两种路由实现和使用场景.html" class="leancloud_visitors" data-flag-title="前端两种路由实现和使用场景">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在学习vue-router时，了解到前端路由的两种模式，本文就前端路由，及其两种模式的原理和使用场景，做一个整理总结。</p>
+<a id="more"></a>
+<h2 id="前端路由概述"><a href="#前端路由概述" class="headerlink" title="前端路由概述"></a>前端路由概述</h2><h3 id="什么是路由"><a href="#什么是路由" class="headerlink" title="什么是路由"></a>什么是路由</h3><p>路由这个概念最先是后端出现的，简单来说路由就是用来跟后端服务器进行交互的一种方式，通过不同的路径，来请求不同的资源，请求不同的页面是路由的其中一种功能。</p>
+<h3 id="前端路由的诞生"><a href="#前端路由的诞生" class="headerlink" title="前端路由的诞生"></a>前端路由的诞生</h3><p>前端路由的出现要从 ajax 开始，有了 Ajax 后，用户交互就不用每次都刷新页面，体验带来了极大的提升。随着技术的发展，简单的异步已经不能满足需求，所以异步的更高级体验出现了——SPA(单页应用)。<br>SPA 的出现大大提高了 WEB 应用的交互体验。在与用户的交互过程中，不再需要重新刷新页面，获取数据也是通过 Ajax 异步获取，页面显示变的更加流畅。<br>但由于 SPA 中用户的交互是通过 JS 改变 HTML 内容来实现的，页面本身的 url 并没有变化，这导致了两个问题：</p>
+<ul>
+<li>SPA 无法记住用户的操作记录，无论是刷新、前进还是后退，都无法展示用户真实的期望内容。</li>
+<li>SPA 中虽然由于业务的不同会有多种页面展示形式，但只有一个 url，对 SEO 不友好，不方便搜索引擎进行收录。</li>
+</ul>
+<p>前端路由就是为了解决上述问题而出现的。</p>
+<h3 id="什么是前端路由"><a href="#什么是前端路由" class="headerlink" title="什么是前端路由"></a>什么是前端路由</h3><p>简单的说，就是在保证只有一个 HTML 页面，且与用户交互时不刷新和跳转页面的同时，为 SPA 中的每个视图展示形式匹配一个特殊的 url。在刷新、前进、后退和SEO时均通过这个特殊的 url 来实现。<br>为实现这一目标，我们需要做到以下二点：</p>
+<ul>
+<li>改变 url 且不让浏览器像服务器发送请求。</li>
+<li>可以监听到 url 的变化</li>
+</ul>
+<p>接下来要介绍的 hash 模式和 history 模式，就是实现了上面的功能。</p>
+<h2 id="Hash模式"><a href="#Hash模式" class="headerlink" title="Hash模式"></a>Hash模式</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
+<li>早期的前端路由的实现就是基于location.hash来实现的，location.hash的值就是URL中#后面的内容<br>其实现原理就是监听#后面的内容来发起Ajax请求来进行局部更新，而不需要刷新整个页面。</li>
+<li>使用hashchange事件来监听 URL 的变化，以下这几种情况改变 URL 都会触发 hashchange 事件：浏览器前进后退改变 URL、a标签改变 URL、window.location改变URL。</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">//html</span><br><span class="line">&lt;ul id=&quot;menu&quot;&gt;</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;a href=&quot;#index&quot;&gt;首页&lt;/a&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;a href=&quot;#news&quot;&gt;资讯&lt;/a&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;a href=&quot;#user&quot;&gt;个人中心&lt;/a&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">//js</span><br><span class="line">function hashChange(e)&#123;</span><br><span class="line">    let app = document.getElementById(&apos;app&apos;)</span><br><span class="line">    switch (location.hash) &#123;</span><br><span class="line">      case &apos;#index&apos;:</span><br><span class="line">        app.innerHTML = &apos;&lt;h1&gt;这是首页内容&lt;/h1&gt;&apos;</span><br><span class="line">        break</span><br><span class="line">      case &apos;#news&apos;:</span><br><span class="line">        app.innerHTML = &apos;&lt;h1&gt;这是新闻内容&lt;/h1&gt;&apos;</span><br><span class="line">        break</span><br><span class="line">      case &apos;#user&apos;:</span><br><span class="line">        app.innerHTML = &apos;&lt;h1&gt;这是个人中心内容&lt;/h1&gt;&apos;</span><br><span class="line">        break</span><br><span class="line">      default:</span><br><span class="line">        app.innerHTML = &apos;&lt;h1&gt;404&lt;/h1&gt;&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">window.onhashchange = hashChange</span><br><span class="line">hashChange()</span><br></pre></td></tr></table></figure>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>兼容低版本浏览器，Angular1.x和Vue默认使用的就是hash路由</li>
+<li>只有#符号之前的内容才会包含在请求中被发送到后端，也就是说就算后端没有对路由全覆盖，但是不会返回404错误</li>
+<li>hash值的改变，都会在浏览器的访问历史中增加一个记录，所以可以通过浏览器的回退、前进按钮控制hash的切换<br>会覆盖锚点定位元素的功能</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>不太美观，#后面传输的数据复杂的话会出现问题</li>
+</ul>
+<h2 id="History模式"><a href="#History模式" class="headerlink" title="History模式"></a>History模式</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><ul>
+<li>history 提供了 pushState 和 replaceState 两个方法来记录路由状态，这两个方法改变 URL 不会引起页面刷新</li>
+<li>history 提供类似 hashchange 事件的 popstate 事件，但 popstate 事件有些不同：通过浏览器前进后退改变 URL 时会触发 popstate 事件，通过pushState/replaceState或a标签改变 URL 不会触发 popstate 事件。好在我们可以拦截 pushState/replaceState的调用和a标签的点击事件来检测 URL 变化，所以监听 URL 变化可以实现，只是没有 hashchange 那么方便。</li>
+<li>pushState(state, title, url) 和 replaceState(state, title, url)都可以接受三个相同的参数。</li>
+</ul>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">//html</span><br><span class="line">&lt;ul id=&quot;menu&quot;&gt;</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;a href=&quot;/index&quot;&gt;首页&lt;/a&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;a href=&quot;/news&quot;&gt;资讯&lt;/a&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;a href=&quot;/user&quot;&gt;个人中心&lt;/a&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">//js</span><br><span class="line">document.querySelector(&apos;#menu&apos;).addEventListener(&apos;click&apos;,function (e) &#123;</span><br><span class="line">  if(e.target.nodeName ===&apos;A&apos;)&#123;</span><br><span class="line">    e.preventDefault()</span><br><span class="line">    let path = e.target.getAttribute(&apos;href&apos;)  //获取超链接的href，改为pushState跳转，不刷新页面</span><br><span class="line">    window.history.pushState(&#123;&#125;,&apos;&apos;,path)  //修改浏览器中显示的url地址</span><br><span class="line">    render(path)  //根据path，更改页面内容</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">function render(path) &#123;</span><br><span class="line">  let app = document.getElementById(&apos;app&apos;)</span><br><span class="line">  switch (path) &#123;</span><br><span class="line">    case &apos;/index&apos;:</span><br><span class="line">      app.innerHTML = &apos;&lt;h1&gt;这是首页内容&lt;/h1&gt;&apos;</span><br><span class="line">      break</span><br><span class="line">    case &apos;/news&apos;:</span><br><span class="line">      app.innerHTML = &apos;&lt;h1&gt;这是新闻内容&lt;/h1&gt;&apos;</span><br><span class="line">      break</span><br><span class="line">    case &apos;/user&apos;:</span><br><span class="line">      app.innerHTML = &apos;&lt;h1&gt;这是个人中心内容&lt;/h1&gt;&apos;</span><br><span class="line">      break</span><br><span class="line">    default:</span><br><span class="line">      app.innerHTML = &apos;&lt;h1&gt;404&lt;/h1&gt;&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">window.onpopstate = function (e) &#123;</span><br><span class="line">  render(location.pathname)</span><br><span class="line">&#125;</span><br><span class="line">render(&apos;/index&apos;)</span><br></pre></td></tr></table></figure>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>使用简单，比较美观</li>
+<li>pushState()设置新的URL可以是任意与当前URL同源的URL，而hash只能改变#后面的内容，因此只能设置与当前URL同文档的URL</li>
+<li>pushState()设置的URL与当前URL一模一样时也会被添加到历史记录栈中，而hash#后面的内容必须被修改才会被添加到新的记录栈中</li>
+<li>pushState()可以通过stateObject参数添加任意类型的数据到记录中，而hash只能添加短字符串</li>
+<li>pushState()可额外设置title属性供后续使用</li>
+</ul>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>前端的URL必须和向发送请求后端URL保持一致，否则会报404错误</li>
+<li>由于History API的缘故，低版本浏览器有兼容行问题</li>
+</ul>
+<h2 id="两种不同使用场景"><a href="#两种不同使用场景" class="headerlink" title="两种不同使用场景"></a>两种不同使用场景</h2><ul>
+<li>从上文可见，hash模式下url会带有#，当你希望url更优雅时，可以使用history模式。</li>
+<li>当使用history模式时，需要注意在服务端增加一个覆盖所有情况的候选资源：如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是你 app 依赖的页面。</li>
+<li>当需要兼容低版本的浏览器时，建议使用hash模式。</li>
+<li>当需要添加任意类型数据到记录时，可以使用history模式。</li>
+</ul>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://juejin.im/post/5da9d07c6fb9a04de6513a82" target="_blank" rel="noopener">前端框架路由实现</a></li>
+<li><a href="https://www.jianshu.com/p/5aab4a6711d5" target="_blank" rel="noopener">前端路由的两种模式</a></li>
+<li><a href="http://m.shanhuxueyuan.com/news/detail/137.html" target="_blank" rel="noopener">两种前端路由（hash模式和history模式）实现原理解析及区别</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/路由/" rel="tag"><i class="fa fa-tag"></i> 路由</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/JS事件冒泡和事件委托.html" rel="next" title="JS事件冒泡和事件委托">
+                <i class="fa fa-chevron-left"></i> JS事件冒泡和事件委托
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/assets/blogImg/avatar.png" alt="Dango">
+            
+              <p class="site-author-name" itemprop="name">Dango</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/minorjone" title="GitHub &rarr; https://github.com/minorjone" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:879275999@qq.com" title="E-Mail &rarr; mailto:879275999@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前端路由概述"><span class="nav-number">1.</span> <span class="nav-text">前端路由概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是路由"><span class="nav-number">1.1.</span> <span class="nav-text">什么是路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端路由的诞生"><span class="nav-number">1.2.</span> <span class="nav-text">前端路由的诞生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是前端路由"><span class="nav-number">1.3.</span> <span class="nav-text">什么是前端路由</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash模式"><span class="nav-number">2.</span> <span class="nav-text">Hash模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">2.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">2.4.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#History模式"><span class="nav-number">3.</span> <span class="nav-text">History模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理-1"><span class="nav-number">3.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-1"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-1"><span class="nav-number">3.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-1"><span class="nav-number">3.4.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种不同使用场景"><span class="nav-number">4.</span> <span class="nav-text">两种不同使用场景</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-anchor"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dango</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+<div class="copyright">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'BHfz5zxfsCYHnHXpWKpO5f38-gzGzoHsz',
+    appKey: 'LQI6U9bUcPXquDU0yEDFAu0U',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.7.0"></script>
+
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
