@@ -1,1 +1,1 @@
-http://dangoying.ink/前端两种路由实现和使用场景.html
+http://dangoying.ink/TypeScript入门教程.html
