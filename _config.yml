@@ -107,9 +107,10 @@ jsonContent:
 
 #algolia
 algolia:
-  applicationID: 'RAEGHV9C55'
-  apiKey: '786548c432d905298e9946dd4dd863f4'
-  indexName: 'hexo'
+  applicationID: RAEGHV9C55
+  apiKey: 786548c432d905298e9946dd4dd863f4
+  adminApiKey: 31489743f6995617451b2dee92c85cb0
+  indexName: hexo
   chunkSize: 5000
 
 #seo
