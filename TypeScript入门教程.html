@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="本文是博主在学习TypeScript时跟着官方文档，自己写的例子，便于对知识点的掌握、梳理。  基础类型在Javascript中，声明的变量在被赋值前可以是任何数据类型，TypeScript中对变量的数据类型做了校验，一旦设置了指定的类型，变量就不能再被赋值其他类型的数据，这样更便于后期对变量的维护和查错。 布尔值1let flag: boolean = false; 数字1234let num">
+  <meta name="description" content="本文是博主在学习TypeScript时跟着官方文档，自己写的例子，便于对知识点的掌握、梳理。  基础类型在Javascript中，声明的变量在被赋值前可以是任何数据类型，TypeScript中对变量的数据类型做了校验，一旦设置了指定的类型，变量就不能再被赋值其他类型的数据，这样更便于后期对变量的维护和查错。">
 <meta name="keywords" content="前端,TS,Typescript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TypeScript入门教程">
 <meta property="og:url" content="http://dangoying.ink/TypeScript入门教程.html">
 <meta property="og:site_name" content="团子的代码作坊">
-<meta property="og:description" content="本文是博主在学习TypeScript时跟着官方文档，自己写的例子，便于对知识点的掌握、梳理。  基础类型在Javascript中，声明的变量在被赋值前可以是任何数据类型，TypeScript中对变量的数据类型做了校验，一旦设置了指定的类型，变量就不能再被赋值其他类型的数据，这样更便于后期对变量的维护和查错。 布尔值1let flag: boolean = false; 数字1234let num">
+<meta property="og:description" content="本文是博主在学习TypeScript时跟着官方文档，自己写的例子，便于对知识点的掌握、梳理。  基础类型在Javascript中，声明的变量在被赋值前可以是任何数据类型，TypeScript中对变量的数据类型做了校验，一旦设置了指定的类型，变量就不能再被赋值其他类型的数据，这样更便于后期对变量的维护和查错。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-13T15:37:29.625Z">
+<meta property="og:updated_time" content="2020-07-13T15:39:01.746Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TypeScript入门教程">
-<meta name="twitter:description" content="本文是博主在学习TypeScript时跟着官方文档，自己写的例子，便于对知识点的掌握、梳理。  基础类型在Javascript中，声明的变量在被赋值前可以是任何数据类型，TypeScript中对变量的数据类型做了校验，一旦设置了指定的类型，变量就不能再被赋值其他类型的数据，这样更便于后期对变量的维护和查错。 布尔值1let flag: boolean = false; 数字1234let num">
+<meta name="twitter:description" content="本文是博主在学习TypeScript时跟着官方文档，自己写的例子，便于对知识点的掌握、梳理。  基础类型在Javascript中，声明的变量在被赋值前可以是任何数据类型，TypeScript中对变量的数据类型做了校验，一旦设置了指定的类型，变量就不能再被赋值其他类型的数据，这样更便于后期对变量的维护和查错。">
 
 
 
@@ -487,6 +487,7 @@
 <p>本文是博主在学习TypeScript时跟着官方文档，自己写的例子，便于对知识点的掌握、梳理。</p>
 </blockquote>
 <h1 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h1><p>在Javascript中，声明的变量在被赋值前可以是任何数据类型，TypeScript中对变量的数据类型做了校验，一旦设置了指定的类型，变量就不能再被赋值其他类型的数据，这样更便于后期对变量的维护和查错。</p>
+<a id="more"></a>
 <h2 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> flag: boolean = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num1: number = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">let</span> num2: number = <span class="number">0xf00d</span>;</span><br><span class="line"><span class="keyword">let</span> num3: number = <span class="number">0b1010</span>;</span><br><span class="line"><span class="keyword">let</span> num4: number = <span class="number">0o744</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str: string = <span class="string">'Hello'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> age: number = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> info: string = <span class="string">`I'm <span class="subst">$&#123;age&#125;</span> years old`</span>;</span><br></pre></td></tr></table></figure>
