@@ -1,1 +1,1 @@
-http://dangoying.ink/TypeScript入门教程.html
+http://dangoying.ink/VUE-SSR初探.html
